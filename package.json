@@ -1,14 +1,15 @@
 {
   "name": "typeorm-express-query-builder",
   "version": "1.0.0",
-  "description": "",
+  "description": "Easily transform an Express req.query into TypeORM query",
   "main": "index.js",
   "scripts": {
     "build": "tsc -p .",
     "build:watch": "tsc -p . --watch",
     "test": "jest",
     "test:cov": "jest --coverage",
-    "test:watch": "jest --watch"
+    "test:watch": "jest --watch",
+    "codecov": "codecov"
   },
   "keywords": [
     "typeorm",
