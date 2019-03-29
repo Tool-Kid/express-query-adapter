@@ -1,0 +1,41 @@
+version: 2.1
+
+executors:
+  node_container:
+    docker:
+      - image: circleci/node:8-browsers
+    working_directory: ~/typeorm-express-query-builder
+
+jobs:
+
+  setup:
+    executor: node_container
+    steps:
+      - checkout
+      - restore_cache:
+          key: typeorm-express-query-builder-{{ .Branch }}-{{ checksum "package-lock.json" }}
+      - run: npm install
+      - save_cache:
+          key: typeorm-express-query-builder-{{ .Branch }}-{{ checksum "package-lock.json" }}
+          paths: "node_modules"
+      - persist_to_workspace:
+          root: ~/typeorm-express-query-builder
+          paths:
+            - .
+
+  unit_tests:
+    executor: node_container
+    steps:
+      - attach_workspace:
+        at: ~/typeorm-express-query-builder
+      - run: npm run test:cov
+      - run: npm run codecov
+
+workflows:
+
+  default:
+    jobs:
+      - setup
+      - unit_tests:
+          requires:
+            - setup
