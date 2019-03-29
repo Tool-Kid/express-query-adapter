@@ -31,6 +31,21 @@ jobs:
       - run: npm run test:cov
       - run: npm run codecov
 
+  publish:
+    executor: node_container
+    steps:
+      - attach_workspace:
+          at: ~/typeorm-express-query-builder
+      - run:
+          name: Build package
+          command: npm run build
+      - run:
+          name: Authenticate with registry
+          command: echo "//registry.npmjs.org/:_authToken=$npm_TOKEN" > ~/typeorm-express-query-builder/dist/.npmrc
+      - run:
+          name: Change to dist dir & publish
+          command: cd dist && npm publish
+
 workflows:
 
   default:
@@ -39,3 +54,9 @@ workflows:
       - unit_tests:
           requires:
             - setup
+      - publish:
+          requires:
+            - unit_tests
+          filters:
+            branches:
+              only: master
