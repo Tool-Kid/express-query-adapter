@@ -27,7 +27,7 @@ jobs:
     executor: node_container
     steps:
       - attach_workspace:
-        at: ~/typeorm-express-query-builder
+          at: ~/typeorm-express-query-builder
       - run: npm run test:cov
       - run: npm run codecov
 
