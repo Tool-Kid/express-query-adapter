@@ -41,7 +41,7 @@ jobs:
           command: npm run build
       - run:
           name: Copy package.json
-          coomand: cp ./package.json ./dist
+          command: cp ./package.json ./dist
       - run:
           name: Copy README.md
           command: cp ./README.md ./dist
