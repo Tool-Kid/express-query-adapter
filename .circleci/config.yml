@@ -44,7 +44,7 @@ jobs:
           coomand: cp ./package.json ./dist
       - run:
           name: Copy README.md
-          comand: cp ./README.md ./dist
+          command: cp ./README.md ./dist
       - run:
           name: Authenticate with registry
           command: echo "//registry.npmjs.org/:_authToken=$npm_TOKEN" > ~/typeorm-express-query-builder/dist/.npmrc
