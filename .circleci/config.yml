@@ -40,6 +40,12 @@ jobs:
           name: Build package
           command: npm run build
       - run:
+          name: Copy package.json
+          coomand: cp ./package.json ./dist
+      - run:
+          name: Copy README.md
+          coomand: cp ./README.md ./dist
+      - run:
           name: Authenticate with registry
           command: echo "//registry.npmjs.org/:_authToken=$npm_TOKEN" > ~/typeorm-express-query-builder/dist/.npmrc
       - run:
