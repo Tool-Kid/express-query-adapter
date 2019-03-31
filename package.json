@@ -1,6 +1,6 @@
 {
   "name": "typeorm-express-query-builder",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Easily transform an Express req.query into TypeORM query",
   "main": "index.js",
   "scripts": {
@@ -24,6 +24,7 @@
   "license": "MIT",
   "devDependencies": {
     "@types/jest": "^24.0.11",
+    "body-parser": "^1.18.3",
     "codecov": "^3.2.0",
     "express": "^4.16.4",
     "jest": "^24.5.0",

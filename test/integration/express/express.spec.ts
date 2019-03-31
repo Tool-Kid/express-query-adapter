@@ -1,5 +1,6 @@
 import express = require('express');
 import request = require('supertest');
+import bodyParser = require('body-parser');
 import { QueryBuilder } from '../../../src/query-builder';
 import { Like } from 'typeorm';
 
@@ -9,8 +10,20 @@ describe('Test Express integration', () => {
 
   beforeAll((done) => {
     let app = express();
-    app.get('/foo', (req, res) => {
+    app.use(bodyParser.json());
+    app.use(bodyParser.urlencoded({extended: true}));
+    app.get('/get', (req, res) => {
       const queryBuilder = new QueryBuilder(req.query);
+      const built = queryBuilder.build();
+      res.send(built);
+    });
+    app.post('/post_urlquery', (req, res) => {
+      const queryBuilder = new QueryBuilder(req.query);
+      const built = queryBuilder.build();
+      res.send(built);
+    });
+    app.post('/post_body', (req, res) => {
+      const queryBuilder = new QueryBuilder(req.body);
       const built = queryBuilder.build();
       res.send(built);
     });
@@ -19,9 +32,47 @@ describe('Test Express integration', () => {
     });
   })
 
-  it('should return an appropiate query built', (done) => {
+  it('should return an appropiate query built for GET /get?...', (done) => {
     request(server)
-      .get('/foo?name=rjlopezdev&email__contains=@gmail.com')
+      .get('/get?name=rjlopezdev&email__contains=@gmail.com')
+      .expect(200)
+      .end((err, res) => {
+        expect(JSON.parse(res.text)).toEqual({
+          where: {
+            name: 'rjlopezdev',
+            email: Like('%@gmail.com%')
+          },
+          skip: 0,
+          take: 25
+        });
+        done();
+      })
+  })
+
+  it('should return an appropiate query built for POST /post_urlquery?...', (done) => {
+    request(server)
+      .post('/post_urlquery?name=rjlopezdev&email__contains=@gmail.com')
+      .expect(200)
+      .end((err, res) => {
+        expect(JSON.parse(res.text)).toEqual({
+          where: {
+            name: 'rjlopezdev',
+            email: Like('%@gmail.com%')
+          },
+          skip: 0,
+          take: 25
+        });
+        done();
+      })
+  })
+
+  it('should return an appropiate query built for POST /post_body, body: {...}', (done) => {
+    request(server)
+      .post('/post_body')
+      .send({
+        name: 'rjlopezdev',
+        email__contains: '@gmail.com'
+      })
       .expect(200)
       .end((err, res) => {
         expect(JSON.parse(res.text)).toEqual({
