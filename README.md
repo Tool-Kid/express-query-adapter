@@ -35,7 +35,7 @@ This library allows you to transfrom automatically Express.js _req.query_ into T
 
 ## How it works?
 
-![](typeorm-express-pipeline.png)
+![](https://raw.githubusercontent.com/rjlopezdev/typeorm-express-query-builder/master/typeorm-express-pipeline.png)
 
 
 ## Usage
@@ -117,6 +117,11 @@ __gt__ | Returns entries with value greater than provided | `foo__gt=18`
 __gte__ | Return entries with value greater than or equal to provided | `foo__gte=18`
 __in__ | Return entries that match with values in list | `foo__in=admin,common`
 __between__ | Return entries in range | `foo__between=1,27`
+
+**Notice**: you can use negative logic prefixing lookup with `__not`.
+
+*Example:*
+`foo__not__contains=value`
 
 ## Options
 
