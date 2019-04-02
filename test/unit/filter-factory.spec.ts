@@ -9,6 +9,18 @@ describe('Test FilterFactory #get', () => {
     const filter = factory.get({}, 'field', 'value');
     expect(filter).toBeInstanceOf(FieldFilter);
   });
+
+  it('should return an instance of FieldFilter with notOperator equals to true', () => {
+    const filter = factory.get({}, 'field__not', 'value') as any;
+    expect(filter).toBeInstanceOf(FieldFilter);
+    expect(filter.notOperator).toBeTruthy();
+  });
+
+  it('should return an instance of FieldFilter with notOperator equals to false', () => {
+    const filter = factory.get({}, 'field', 'value') as any;
+    expect(filter).toBeInstanceOf(FieldFilter);
+    expect(filter.notOperator).toBeFalsy();
+  });
 })
 
 
