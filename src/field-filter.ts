@@ -1,11 +1,14 @@
 import { AbstractFilter } from './filter';
 import { LookupFilter } from './lookup.enum';
-import { Like, IsNull, LessThan, LessThanOrEqual, MoreThan, MoreThanOrEqual, In, Between } from 'typeorm';
+import { Like, IsNull, LessThan, LessThanOrEqual, MoreThan, MoreThanOrEqual, In, Between, Not } from 'typeorm';
 
 export class FieldFilter extends AbstractFilter {
 
-  constructor(query: any, prop: string, lookup: LookupFilter, value: string) {
+  private notOperator: boolean;
+
+  constructor(query: any, prop: string, lookup: LookupFilter, value: string, notOperator: boolean = false) {
     super(query, prop, lookup, value);
+    this.notOperator = notOperator;
   }
 
   public buildQuery() {
@@ -47,6 +50,9 @@ export class FieldFilter extends AbstractFilter {
         const rangeValues = this.value.split(',');
         queryToAdd = { [this.prop]: Between(+rangeValues[0], +rangeValues[1]) };
         break;
+    }
+    if(this.notOperator) {
+      queryToAdd[this.prop] = Not(queryToAdd[this.prop]);
     }
     this.query['where'] = {
       ...this.query['where'],

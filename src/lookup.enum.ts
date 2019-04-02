@@ -9,7 +9,8 @@ export enum LookupFilter {
   STARTS_WITH = 'startswith',
   ENDS_WITH = 'endswith',
   IN = 'in',
-  BETWEEN = 'between'
+  BETWEEN = 'between',
+  NOT = 'not',
 }
 
 export enum LookupDelimiter {
