@@ -1,4 +1,4 @@
-import { Like, IsNull, MoreThan, MoreThanOrEqual, LessThanOrEqual, LessThan, Between, In } from 'typeorm';
+import { Like, IsNull, MoreThan, MoreThanOrEqual, LessThanOrEqual, LessThan, Between, In, Not } from 'typeorm';
 import { FieldFilter } from '../../src/field-filter';
 import { LookupFilter } from '../../src/lookup.enum';
 
@@ -70,6 +70,12 @@ describe('Test FieldFilter #buildQuery', () => {
     const fieldFilter = new FieldFilter(built, 'name', LookupFilter.IN, '1,2,3,4,foo');
     fieldFilter.buildQuery();
     expect(built['where']['name']).toEqual(In(['1', '2', '3', '4', 'foo']));
+  });
+
+  it('should return a <not> filter', () => {
+    const fieldFilter = new FieldFilter(built, 'name', LookupFilter.EXACT, 'value', true);
+    fieldFilter.buildQuery();
+    expect(built['where']['name']).toEqual(Not('value'));
   });
 
 });
