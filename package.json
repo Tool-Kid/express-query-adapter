@@ -23,21 +23,19 @@
   "author": "rjlopezdev",
   "license": "MIT",
   "devDependencies": {
-    "@types/jest": "^24.0.11",
+    "@types/jest": "^24.9.0",
     "body-parser": "^1.18.3",
-    "codecov": "^3.2.0",
-    "express": "^4.16.4",
-    "jest": "^24.5.0",
-    "pg": "^7.9.0",
-    "prettier": "^1.16.2",
+    "codecov": "^3.6.1",
+    "express": "^4.17.1",
+    "jest": "^24.9.0",
+    "pg": "^7.17.1",
+    "prettier": "^1.19.1",
     "supertest": "^4.0.2",
-    "ts-jest": "^24.0.0",
-    "typeorm": "^0.2.15",
-    "typescript": "^3.3.3333"
+    "ts-jest": "^24.3.0",
+    "typeorm": "^0.2.22",
+    "typescript": "^3.7.5"
   },
-  "dependencies": {
-    "typeorm": "^0.2.15"
-  },
+  "dependencies": {},
   "peerDependencies": {
     "typeorm": "^0.2.15"
   }
