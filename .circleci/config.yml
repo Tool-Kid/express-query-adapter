@@ -36,6 +36,10 @@ jobs:
     steps:
       - attach_workspace:
           at: ~/typeorm-express-query-builder
+
+      - run:	
+          name: Build package	
+          command: npm run build
       - run:
           name: Build package
           command: npm run build
