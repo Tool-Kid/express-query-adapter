@@ -30,15 +30,19 @@ jobs:
           at: ~/typeorm-express-query-builder
       - run: npm run test:cov
       - run: npm run codecov
+  
+  build:
+    executor: node_container
+    steps:
+      - attach_workspace:
+          at: ~/typeorm-express-query-builder
+      - run: npm run build
 
   publish:
     executor: node_container
     steps:
       - attach_workspace:
           at: ~/typeorm-express-query-builder
-      - run:
-          name: Build package
-          command: npm run build
       - run:
           name: Copy package.json
           command: cp ./package.json ./dist
@@ -60,9 +64,13 @@ workflows:
       - unit_tests:
           requires:
             - setup
+      - build:
+          requires:
+            - setup
       - publish:
           requires:
             - unit_tests
+            - build
           filters:
             branches:
               only: master
