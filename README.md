@@ -127,6 +127,7 @@ __between__ | Return entries in range | `foo__between=1,27`
 
 | Option | Default | Behaviour | Example |
 | --- | :---: | --- | --- |
+pagination | __true__ | If _true_, paginate results. If _false_, disable pagination | `pagination=false`
 page | __1__ | Return entries for page `page` | `page=2`
 limit | __25__ | Return entries for page `page` paginated by size `limit` | `limit=15`
 order | - | Order for fields:<br>`+`: Ascendant <br> `-`: Descendant | `order=+foo,-name,+surname`

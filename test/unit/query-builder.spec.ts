@@ -89,6 +89,54 @@ describe('Test Query Builder #build', () => {
       take: 10,
     });
   });
+
+  it('should build a query with no paginated results when pagination equals to false', () => {
+      const queryBuilder = new QueryBuilder({
+        name: 'rjlopezdev',
+        email__contains: '@gmail.com',
+        pagination: false
+      });
+      const build = queryBuilder.build();
+      expect(build).toEqual({
+        where: {
+          name: 'rjlopezdev',
+          email: Like('%@gmail.com%'),
+        },
+      });
+    });
+
+  it('should build a query with paginated results when pagination equals to true', () => {
+      const queryBuilder = new QueryBuilder({
+        name: 'rjlopezdev',
+        email__contains: '@gmail.com',
+        pagination: true
+      });
+      const build = queryBuilder.build();
+      expect(build).toEqual({
+        where: {
+          name: 'rjlopezdev',
+          email: Like('%@gmail.com%'),
+        },
+        skip: 0,
+        take: ITEMS_PER_PAGE,
+      });
+    })
+
+    it('should build a query with paginated results when pagination equals undefined', () => {
+      const queryBuilder = new QueryBuilder({
+        name: 'rjlopezdev',
+        email__contains: '@gmail.com',
+      });
+      const build = queryBuilder.build();
+      expect(build).toEqual({
+        where: {
+          name: 'rjlopezdev',
+          email: Like('%@gmail.com%'),
+        },
+        skip: 0,
+        take: ITEMS_PER_PAGE,
+      });
+    })
 });
 
 describe('Test QueryBuilder #setPage', () => {

@@ -14,8 +14,14 @@ export class QueryBuilder {
   public build(): any {
     const factory = new FilterFactory();
 
-    this.setPage();
-    this.setLimit();
+    if (
+      this.expressQuery['pagination'] === undefined ||
+      this.expressQuery['pagination'] === true
+    ) {
+      this.setPage();
+      this.setLimit();
+    }
+    delete this.expressQuery['pagination'];
     this.setOrder();
 
     for (const queryItem in this.expressQuery) {
