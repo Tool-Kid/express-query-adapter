@@ -32,6 +32,10 @@ describe('Test Express integration', () => {
     });
   })
 
+  afterAll(() => {
+    server.close();
+  })
+
   it('should return an appropiate query built for GET /get?...', (done) => {
     request(server)
       .get('/get?name=rjlopezdev&email__contains=@gmail.com')
