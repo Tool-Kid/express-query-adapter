@@ -264,3 +264,23 @@ describe('Test QueryBuilder #getOrderCriteria', () => {
     }).toThrow();
   })
 })
+
+
+describe('Test QueryBuilder #setRelations', () => {
+  it(`should return a query with no 'with' property`, () => {
+    const queryBuilder: any = new QueryBuilder({});
+    queryBuilder.setOrder();
+    expect(queryBuilder.typeORMQuery).toEqual({});
+  })
+
+  it(`should return a query with relationse equal to ['foo1', 'foo2']`, () => {
+    const queryBuilder: any = new QueryBuilder({
+      with: 'foo1,foo2'
+    });
+    queryBuilder.setRelations();
+    expect(queryBuilder.typeORMQuery).toEqual({
+      relations: ['foo1', 'foo2']
+    });
+    expect(queryBuilder.expressQuery['with']).toBeUndefined()
+  })
+})
