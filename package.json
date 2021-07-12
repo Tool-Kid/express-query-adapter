@@ -24,7 +24,7 @@
   "license": "MIT",
   "devDependencies": {
     "@types/jest": "^24.9.0",
-    "@types/node": "^13.1.8",
+    "@types/node": "^16.3.1",
     "body-parser": "^1.18.3",
     "codecov": "^3.6.1",
     "express": "^4.17.1",
