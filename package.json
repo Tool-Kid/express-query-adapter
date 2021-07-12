@@ -23,7 +23,7 @@
   "author": "rjlopezdev",
   "license": "MIT",
   "devDependencies": {
-    "@types/jest": "^24.9.0",
+    "@types/jest": "^26.0.24",
     "@types/node": "^13.1.8",
     "body-parser": "^1.18.3",
     "codecov": "^3.6.1",
