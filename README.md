@@ -131,4 +131,4 @@ pagination | __true__ | If _true_, paginate results. If _false_, disable paginat
 page | __1__ | Return entries for page `page` | `page=2`
 limit | __25__ | Return entries for page `page` paginated by size `limit` | `limit=15`
 order | - | Order for fields:<br>`+`: Ascendant <br> `-`: Descendant | `order=+foo,-name,+surname`
-
+| with | - | Entity relations to attach to query | with=posts,comments
