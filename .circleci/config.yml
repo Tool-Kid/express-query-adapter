@@ -3,7 +3,7 @@ version: 2.1
 executors:
   node_container:
     docker:
-      - image: circleci/node:8-browsers
+      - image: cimg/node:14.17.6
     working_directory: ~/typeorm-express-query-builder
 
 jobs:
@@ -30,7 +30,7 @@ jobs:
           at: ~/typeorm-express-query-builder
       - run: npm run test:cov
       - run: npm run codecov
-  
+
   build:
     executor: node_container
     steps:
@@ -45,7 +45,7 @@ jobs:
           at: ~/typeorm-express-query-builder
 
       - run:
-          name: Build package	
+          name: Build package
           command: npm run build
       - run:
           name: Copy package.json
