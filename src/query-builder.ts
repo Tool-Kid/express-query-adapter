@@ -1,4 +1,4 @@
-import { FilterFactory } from './filter-factory';
+import { FilterFactory } from './filter/filter-factory';
 import { ITEMS_PER_PAGE } from './default-config';
 
 export class QueryBuilder {

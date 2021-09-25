@@ -1,5 +1,5 @@
-import { LookupDelimiter, LookupFilter } from './lookup.enum';
-import { FieldFilter } from './field-filter';
+import { LookupDelimiter, LookupFilter } from '../lookup.enum';
+import { FieldFilter } from './field/field-filter';
 import { AbstractFilter } from './filter';
 
 export class FilterFactory {

@@ -1,4 +1,4 @@
-import { LookupFilter } from "./lookup.enum";
+import { LookupFilter } from "../../lookup.enum";
 import { Like, IsNull, LessThan, LessThanOrEqual, MoreThan, MoreThanOrEqual, In, Between, Not } from 'typeorm';
 
 interface BuildQueryFunction {

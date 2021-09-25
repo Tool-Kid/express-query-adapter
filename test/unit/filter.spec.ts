@@ -1,4 +1,4 @@
-import { FilterFactory } from '../../src/filter-factory';
+import { FilterFactory } from '../../src/filter/filter-factory';
 import { QueryBuilder } from '../../src/query-builder';
 import { Like, IsNull, MoreThan, MoreThanOrEqual, LessThanOrEqual, LessThan } from 'typeorm';
 

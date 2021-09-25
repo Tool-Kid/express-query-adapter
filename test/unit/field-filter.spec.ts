@@ -1,5 +1,5 @@
 import { Like, IsNull, MoreThan, MoreThanOrEqual, LessThanOrEqual, LessThan, Between, In, Not } from 'typeorm';
-import { FieldFilter } from '../../src/field-filter';
+import { FieldFilter } from '../../src/filter/field/field-filter';
 import { LookupFilter } from '../../src/lookup.enum';
 
 describe('Test FieldFilter #buildQuery', () => {
