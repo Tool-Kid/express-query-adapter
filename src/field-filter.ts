@@ -3,13 +3,21 @@ import { Not } from 'typeorm';
 import { AbstractFilter } from './filter';
 import { LookupFilter } from './lookup.enum';
 
+interface FilterConfig {
+  query: any;
+  prop: string;
+  lookup: LookupFilter;
+  value: string;
+  notOperator?: boolean;
+}
+
 export class FieldFilter extends AbstractFilter {
 
   private notOperator: boolean;
 
-  constructor(query: any, prop: string, lookup: LookupFilter, value: string, notOperator: boolean = false) {
-    super(query, prop, lookup, value);
-    this.notOperator = notOperator;
+  constructor(config: FilterConfig) {
+    super(config.query, config.prop, config.lookup, config.value);
+    this.notOperator = config.notOperator;
   }
 
   public buildQuery() {
