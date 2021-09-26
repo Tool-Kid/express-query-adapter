@@ -306,13 +306,14 @@ describe('Test QueryBuilder #setRelations', () => {
   })
 
   it(`should return a query with relationse equal to ['foo1', 'foo2']`, () => {
-    const queryBuilder: any = new QueryBuilder({
+    const queryBuilder: QueryBuilder = new QueryBuilder({
       with: 'foo1,foo2'
     });
-    queryBuilder.setRelations();
-    expect(queryBuilder.typeORMQuery).toEqual({
-      relations: ['foo1', 'foo2']
+    const query = queryBuilder.build();
+    expect(query).toEqual({
+      relations: ['foo1', 'foo2'],
+      skip: 0,
+      take: 25,
     });
-    expect(queryBuilder.expressQuery['with']).toBeUndefined()
   })
 })

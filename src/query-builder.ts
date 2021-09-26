@@ -28,8 +28,6 @@ export class QueryBuilder {
       }
     }
 
-    this.setRelations();
-
     for (const queryItem in this.expressQuery) {
       const filter = factory.get(this.typeORMQuery, queryItem, this.expressQuery[queryItem]);
       filter.buildQuery();
@@ -38,14 +36,4 @@ export class QueryBuilder {
     return this.typeORMQuery;
   }
 
-  private setRelations() {
-    if (!this.expressQuery['with']) {
-      return;
-    }
-
-    const relations = this.expressQuery['with'].split(',');
-    this.typeORMQuery['relations'] = relations;
-
-    delete this.expressQuery['with'];
-  }
 }
