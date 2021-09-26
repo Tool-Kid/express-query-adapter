@@ -1,27 +1,31 @@
 import { FilterFactory } from './filter/filter-factory';
-import { ITEMS_PER_PAGE } from './default-config';
+import { OptionsContainer } from './filter/options/container';
 
 export class QueryBuilder {
 
   private expressQuery: any;
   private typeORMQuery: any;
 
+  private options: OptionsContainer;
+
   constructor(expressQuery: any) {
     this.expressQuery = expressQuery;
     this.typeORMQuery = {};
+    this.options = new OptionsContainer();
   }
 
   public build(): any {
     const factory = new FilterFactory();
 
-    if (
-      this.expressQuery['pagination'] === undefined ||
-      this.expressQuery['pagination'] === true
-    ) {
-      this.setPage();
-      this.setLimit();
+    for (const option of this.options.options) {
+      const query = option.setOption({
+        expressQuery: this.expressQuery,
+        typeORMQuery: this.typeORMQuery,
+      });
+      this.expressQuery = query.expressQuery;
+      this.typeORMQuery = this.typeORMQuery;
     }
-    delete this.expressQuery['pagination'];
+
     this.setOrder();
     this.setRelations();
 
@@ -31,20 +35,6 @@ export class QueryBuilder {
     }
 
     return this.typeORMQuery;
-  }
-
-  private setPage() {
-    this.typeORMQuery['skip'] = (this.expressQuery['page'] && this.expressQuery['page'] > 1)
-      ? ( this.expressQuery['page'] - 1) * ( this.expressQuery['limit'] || ITEMS_PER_PAGE)
-      : 0;
-    delete this.expressQuery['page'];
-  }
-
-  private setLimit() {
-    this.typeORMQuery['take'] = (this.expressQuery['limit'] && this.expressQuery['limit'] > 0)
-      ? this.expressQuery['limit']
-      : ITEMS_PER_PAGE;
-    delete this.expressQuery['limit'];
   }
 
   private setOrder() {
