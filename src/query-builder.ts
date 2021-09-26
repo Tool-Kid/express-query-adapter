@@ -22,11 +22,12 @@ export class QueryBuilder {
         expressQuery: this.expressQuery,
         typeORMQuery: this.typeORMQuery,
       });
-      this.expressQuery = query.expressQuery;
-      this.typeORMQuery = this.typeORMQuery;
+      if (query) {
+        this.expressQuery = query.expressQuery;
+        this.typeORMQuery = this.typeORMQuery;
+      }
     }
 
-    this.setOrder();
     this.setRelations();
 
     for (const queryItem in this.expressQuery) {
@@ -35,21 +36,6 @@ export class QueryBuilder {
     }
 
     return this.typeORMQuery;
-  }
-
-  private setOrder() {
-    if (!this.expressQuery['order']) {
-      return;
-    }
-    const orderFields = this.expressQuery['order'].split(',');
-    for (const field of orderFields) {
-      const orderCriteria = this.getOrderCriteria(field);
-      this.typeORMQuery['order'] = {
-        ...this.typeORMQuery['order'],
-        [field.substr(1, field.length)]: orderCriteria
-      }
-    }
-    delete this.expressQuery['order'];
   }
 
   private setRelations() {
@@ -61,15 +47,5 @@ export class QueryBuilder {
     this.typeORMQuery['relations'] = relations;
 
     delete this.expressQuery['with'];
-  }
-
-  private getOrderCriteria(field: string): string {
-    if (field.startsWith('+')) {
-      return 'ASC';
-    } else if (field.startsWith('-')) {
-      return 'DESC';
-    } else {
-      throw new Error(`No order set for <${field}>. Prefix with one of these: [+, -]`);
-    }
   }
 }

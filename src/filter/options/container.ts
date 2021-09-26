@@ -1,4 +1,5 @@
 import { FilterOption } from "./filter-option";
+import { OrderOption } from "./order-option";
 import { PaginationOption } from "./pagination-option";
 
 export class OptionsContainer {
@@ -7,6 +8,7 @@ export class OptionsContainer {
   constructor() {
     this.options.push(
       new PaginationOption(),
+      new OrderOption(),
     );
   }
 }
