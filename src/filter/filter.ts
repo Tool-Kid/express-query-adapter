@@ -1,4 +1,4 @@
-import { LookupFilter } from '../lookup.enum';
+import { LookupFilter } from './field/lookup.enum';
 
 export abstract class AbstractFilter {
 

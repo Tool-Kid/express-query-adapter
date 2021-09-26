@@ -1,7 +1,7 @@
 import { LOOKUP_FILTER_MAP } from './field-filter-map';
 import { Not } from 'typeorm';
 import { AbstractFilter } from '../filter';
-import { LookupFilter } from '../../lookup.enum';
+import { LookupFilter } from './lookup.enum';
 
 interface FilterConfig {
   query: any;
