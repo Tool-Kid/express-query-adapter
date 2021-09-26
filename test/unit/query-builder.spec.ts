@@ -143,29 +143,32 @@ describe('Test QueryBuilder #setPage', () => {
 
   it('should return a skip equals to 0 when page property is not provided', () => {
     const queryBuilder: any = new QueryBuilder({});
-    queryBuilder.setPage();
-    expect(queryBuilder.typeORMQuery).toEqual({
-      skip: 0
+    const query = queryBuilder.build();
+    expect(query).toEqual({
+      skip: 0,
+      take: 25,
     })
   })
 
   it('should return a skip equals to 0 when page equals to 1', () => {
-    const queryBuilder: any = new QueryBuilder({
+    const queryBuilder: QueryBuilder = new QueryBuilder({
       page: 1
     });
-    queryBuilder.setPage();
-    expect(queryBuilder.typeORMQuery).toEqual({
-      skip: 0
+    const query = queryBuilder.build();
+    expect(query).toEqual({
+      skip: 0,
+      take: 25,
     });
   })
 
   it('should return a skip equals to ITEMS_PER_PAGE when page equals to 2', () => {
-    const queryBuilder: any = new QueryBuilder({
+    const queryBuilder: QueryBuilder = new QueryBuilder({
       page: 2
     });
-    queryBuilder.setPage();
-    expect(queryBuilder.typeORMQuery).toEqual({
-      skip: ITEMS_PER_PAGE
+    const query = queryBuilder.build();
+    expect(query).toEqual({
+      skip: ITEMS_PER_PAGE,
+      take: 25,
     });
   })
 })
@@ -173,30 +176,33 @@ describe('Test QueryBuilder #setPage', () => {
 describe('Test QueryBuilder #setLimit', () => {
 
   it('should return a take equals to ITEMS_PER_PAGE when limit is not provided', () => {
-    const queryBuilder: any = new QueryBuilder({});
-    queryBuilder.setLimit();
-    expect(queryBuilder.typeORMQuery).toEqual({
-      take: ITEMS_PER_PAGE
+    const queryBuilder: QueryBuilder = new QueryBuilder({});
+    const query = queryBuilder.build();
+    expect(query).toEqual({
+      take: ITEMS_PER_PAGE,
+      skip: 0,
     });
   })
 
   it('should return a take equals to ITEMS_PER_PAGE when limit equals to 0', () => {
-    const queryBuilder: any = new QueryBuilder({
+    const queryBuilder: QueryBuilder = new QueryBuilder({
       limit: 0
     });
-    queryBuilder.setLimit();
-    expect(queryBuilder.typeORMQuery).toEqual({
-      take: ITEMS_PER_PAGE
+    const query = queryBuilder.build();
+    expect(query).toEqual({
+      take: ITEMS_PER_PAGE,
+      skip: 0,
     });
   })
 
   it('should return a take equals to 1 when limit equals to 1', () => {
-    const queryBuilder: any = new QueryBuilder({
+    const queryBuilder: QueryBuilder = new QueryBuilder({
       limit: 1
     });
-    queryBuilder.setLimit();
-    expect(queryBuilder.typeORMQuery).toEqual({
-      take: 1
+    const query = queryBuilder.build();
+    expect(query).toEqual({
+      take: 1,
+      skip: 0,
     });
   })
 })
