@@ -1,8 +1,8 @@
 import { LookupFilter } from "./lookup.enum";
-import { Like, IsNull, LessThan, LessThanOrEqual, MoreThan, MoreThanOrEqual, In, Between, Not } from 'typeorm';
+import { Like, IsNull, LessThan, LessThanOrEqual, MoreThan, MoreThanOrEqual, In, Between, FindOptionsUtils } from 'typeorm';
 
 interface BuildQueryFunction {
-  build: (prop: string, value: string) => any;
+  build: (prop: string, value: string) => Record<string, FindOptionsUtils>;
 }
 
 export const LOOKUP_FILTER_MAP: Map<LookupFilter, BuildQueryFunction> = new Map([
@@ -33,7 +33,7 @@ export const LOOKUP_FILTER_MAP: Map<LookupFilter, BuildQueryFunction> = new Map(
   [
     LookupFilter.IS_NULL,
     {
-      build: (prop, value) => ({ [prop]: IsNull() }),
+      build: (prop) => ({ [prop]: IsNull() }),
     }
   ],
   [

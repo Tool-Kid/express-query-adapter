@@ -1,22 +1,22 @@
-import { FilterOption } from "./filter-option";
+import { FilterOption, FilterOptionQuery } from "./filter-option";
 
 export class OrderOption extends FilterOption {
 
   public setOption(
-    query: { expressQuery: any, typeORMQuery: any }
+    query: FilterOptionQuery
   ): void {
-    if (!query.expressQuery['order']) {
+    if (!query.source['order']) {
       return;
     }
-    const orderFields = query.expressQuery['order'].split(',');
+    const orderFields = query.source['order'].split(',');
     for (const field of orderFields) {
       const orderCriteria = this.getOrderCriteria(field);
-      query.typeORMQuery['order'] = {
-        ...query.typeORMQuery['order'],
+      query.target['order'] = {
+        ...query.target['order'],
         [field.substr(1, field.length)]: orderCriteria
       }
     }
-    delete query.expressQuery['order'];
+    delete query.source['order'];
   }
 
   private getOrderCriteria(field: string): string {

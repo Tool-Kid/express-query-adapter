@@ -125,10 +125,20 @@ __between__ | Return entries in range | `foo__between=1,27`
 
 ## Options
 
+### Pagination
 | Option | Default | Behaviour | Example |
 | --- | :---: | --- | --- |
 pagination | __true__ | If _true_, paginate results. If _false_, disable pagination | `pagination=false`
 page | __1__ | Return entries for page `page` | `page=2`
 limit | __25__ | Return entries for page `page` paginated by size `limit` | `limit=15`
+
+### Ordering
+| Option | Default | Behaviour | Example |
+| --- | :---: | --- | --- |
 order | - | Order for fields:<br>`+`: Ascendant <br> `-`: Descendant | `order=+foo,-name,+surname`
+
+### Selection
+| Option | Default | Behaviour | Example |
+| --- | :---: | --- | --- |
+| select | - | Fields to select as response. If no provided, it select all fields. | `select=name,surname,foo.nested`|
 | with | - | Entity relations to attach to query | with=posts,comments

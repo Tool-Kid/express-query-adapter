@@ -1,25 +1,25 @@
 import { ITEMS_PER_PAGE } from "../../default-config";
-import { FilterOption } from "./filter-option";
+import { FilterOption, FilterOptionQuery } from "./filter-option";
 
 export class PaginationOption extends FilterOption {
 
   public setOption(
-    query: { expressQuery: any, typeORMQuery: any }
+    query: FilterOptionQuery
   ): void {
     if (
-      query.expressQuery['pagination'] === undefined ||
-      query.expressQuery['pagination'] === true
+      query.source['pagination'] === undefined ||
+      query.source['pagination'] === true
     ) {
-      query.typeORMQuery['skip'] = (query.expressQuery['page'] && query.expressQuery['page'] > 1)
-        ? ( query.expressQuery['page'] - 1) * ( query.expressQuery['limit'] || ITEMS_PER_PAGE)
+      query.target['skip'] = (query.source['page'] && query.source['page'] > 1)
+        ? ( query.source['page'] - 1) * ( query.source['limit'] || ITEMS_PER_PAGE)
         : 0;
-      delete query.expressQuery['page'];
-      query.typeORMQuery['take'] = (query.expressQuery['limit'] && query.expressQuery['limit'] > 0)
-        ? query.expressQuery['limit']
+      delete query.source['page'];
+      query.target['take'] = (query.source['limit'] && query.source['limit'] > 0)
+        ? query.source['limit']
         : ITEMS_PER_PAGE;
-      delete query.expressQuery['limit'];
+      delete query.source['limit'];
     }
-    delete query.expressQuery['pagination'];
+    delete query.source['pagination'];
   }
 
 }

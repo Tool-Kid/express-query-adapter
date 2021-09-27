@@ -1,19 +1,21 @@
-import { FindManyOptions, FindOneOptions } from 'typeorm';
+import { ExpressQuery } from './express-query';
+import { FindManyOptions } from 'typeorm';
+import { TypeORMQuery } from './typeorm-query';
 import { FilterFactory } from './filter/filter-factory';
-import { OptionsContainer } from './filter/options/container';
+import { OptionsCollection } from './filter/options/container';
 
 export class QueryBuilder {
 
-  private expressQuery: any;
-  private typeORMQuery: any;
+  private expressQuery: ExpressQuery;
+  private typeORMQuery: TypeORMQuery;
 
-  private readonly findOptions: OptionsContainer;
+  private readonly findOptions: OptionsCollection;
   private readonly filterFactory: FilterFactory;
 
-  constructor(expressQuery: any) {
+  constructor(expressQuery: ExpressQuery) {
     this.expressQuery = expressQuery;
     this.typeORMQuery = {};
-    this.findOptions = new OptionsContainer();
+    this.findOptions = new OptionsCollection();
     this.filterFactory = new FilterFactory();
   }
 
@@ -21,8 +23,8 @@ export class QueryBuilder {
 
     for (const option of this.findOptions.options) {
       option.setOption({
-        expressQuery: this.expressQuery,
-        typeORMQuery: this.typeORMQuery,
+        source: this.expressQuery,
+        target: this.typeORMQuery,
       });
     }
 

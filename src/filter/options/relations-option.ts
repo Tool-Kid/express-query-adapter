@@ -1,18 +1,18 @@
-import { FilterOption } from "./filter-option";
+import { FilterOption, FilterOptionQuery } from "./filter-option";
 
 export class RelationsOption extends FilterOption {
 
   public setOption(
-    query: { expressQuery: any, typeORMQuery: any }
+    query: FilterOptionQuery
   ): void {
-    if (!query.expressQuery['with']) {
+    if (!query.source['with']) {
       return;
     }
 
-    const relations = query.expressQuery['with'].split(',');
-    query.typeORMQuery['relations'] = relations;
+    const relations = query.source['with'].split(',');
+    query.target['relations'] = relations;
 
-    delete query.expressQuery['with'];
+    delete query.source['with'];
   }
 
 }
