@@ -2,15 +2,17 @@ import { FilterOption } from "./filter-option";
 import { OrderOption } from "./order-option";
 import { PaginationOption } from "./pagination-option";
 import { RelationsOption } from "./relations-option";
+import { SelectOption } from "./select-option";
 
 export class OptionsContainer {
-  public readonly options: FilterOption[] = [];
+  public readonly options: FilterOption[];
 
   constructor() {
-    this.options.push(
+    this.options = [
       new PaginationOption(),
       new OrderOption(),
       new RelationsOption(),
-    );
+      new SelectOption(),
+    ];
   }
 }
