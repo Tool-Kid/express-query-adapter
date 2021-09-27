@@ -23,8 +23,8 @@ export class QueryBuilder {
 
     for (const option of this.findOptions.options) {
       option.setOption({
-        expressQuery: this.expressQuery,
-        typeORMQuery: this.typeORMQuery,
+        source: this.expressQuery,
+        target: this.typeORMQuery,
       });
     }
 

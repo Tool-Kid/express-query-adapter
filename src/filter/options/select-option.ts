@@ -1,18 +1,18 @@
-import { FilterOption } from "./filter-option";
+import { FilterOption, FilterOptionQuery } from "./filter-option";
 
 export class SelectOption extends FilterOption {
 
   public setOption(
-    query: { expressQuery: any; typeORMQuery: any; }
+    query: FilterOptionQuery
   ): void {
-    if (!query.expressQuery['select']) {
+    if (!query.source['select']) {
       return;
     }
 
-    const fields = query.expressQuery['select'].split(',');
-    query.typeORMQuery['select'] = fields;
+    const fields = query.source['select'].split(',');
+    query.target['select'] = fields;
 
-    delete query.expressQuery['select'];
+    delete query.source['select'];
   }
 
 }
