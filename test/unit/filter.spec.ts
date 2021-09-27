@@ -8,55 +8,90 @@ describe('Test FieldFilter', () => {
   const built = {};
 
   it('should return an <exact> filter', () => {
-    const filter = filterFactory.get(built, 'name', 'value');
+    const filter = filterFactory.get({
+      query: built,
+      key: 'name',
+      value: 'value'
+    });
     filter.buildQuery();
     expect(built['where']['name']).toBe('value');
   });
 
   it('should return a <contains> filter', () => {
-    const filter = filterFactory.get(built, 'name__contains', 'value');
+    const filter = filterFactory.get({
+      query: built,key: 'name__contains',
+      value: 'value'
+    });
     filter.buildQuery();
     expect(built['where']['name']).toEqual(Like('%value%'));
   });
 
   it('should return an <startswith> contains filter', () => {
-    const filter = filterFactory.get(built, 'name__endswith', 'value');
+    const filter = filterFactory.get({
+      query: built,
+      key: 'name__endswith',
+      value: 'value'
+    });
     filter.buildQuery();
     expect(built['where']['name']).toEqual(Like('%value'));
   });
 
   it('should return an <endswith> filter', () => {
-    const filter = filterFactory.get(built, 'name__startswith', 'value');
+    const filter = filterFactory.get({
+      query: built,
+      key: 'name__startswith',
+      value: 'value'
+    });
     filter.buildQuery();
     expect(built['where']['name']).toEqual(Like('value%'));
   });
 
   it('should return an <isnull> filter', () => {
-    const filter = filterFactory.get(built, 'name__isnull', 'value');
+    const filter = filterFactory.get({
+      query: built,
+      key: 'name__isnull',
+      value: 'value'
+    });
     filter.buildQuery();
     expect(built['where']['name']).toEqual(IsNull());
   });
 
   it('should return an <gt> filter', () => {
-    const filter = filterFactory.get(built, 'name__gt', '2');
+    const filter = filterFactory.get({
+      query: built,
+      key: 'name__gt',
+      value: '2'
+    });
     filter.buildQuery();
     expect(built['where']['name']).toEqual(MoreThan('2'));
   });
 
   it('should return a <gte> filter', () => {
-    const filter = filterFactory.get(built, 'name__gte', '2');
+    const filter = filterFactory.get({
+      query: built,
+      key: 'name__gte',
+      value: '2'
+    });
     filter.buildQuery();
     expect(built['where']['name']).toEqual(MoreThanOrEqual('2'));
   });
 
   it('should return a <lt> filter', () => {
-    const filter = filterFactory.get(built, 'name__lt', '2');
+    const filter = filterFactory.get({
+      query: built,
+      key: 'name__lt',
+      value: '2'
+    });
     filter.buildQuery();
     expect(built['where']['name']).toEqual(LessThan('2'));
   });
 
   it('should return a <lte> filter', () => {
-    const filter = filterFactory.get(built, 'name__lte', '2');
+    const filter = filterFactory.get({
+      query: built,
+      key: 'name__lte',
+      value: '2'
+    });
     filter.buildQuery();
     expect(built['where']['name']).toEqual(LessThanOrEqual('2'));
   });

@@ -6,18 +6,30 @@ describe('Test FilterFactory #get', () => {
   const factory = new FilterFactory();
 
   it('should return an instance of FieldFilter', () => {
-    const filter = factory.get({}, 'field', 'value');
+    const filter = factory.get({
+      query: {},
+      key: 'field',
+      value: 'value'
+    });
     expect(filter).toBeInstanceOf(FieldFilter);
   });
 
   it('should return an instance of FieldFilter with notOperator equals to true', () => {
-    const filter = factory.get({}, 'field__not', 'value') as any;
+    const filter = factory.get({
+      query: {},
+      key: 'field__not',
+      value: 'value'
+    }) as any;
     expect(filter).toBeInstanceOf(FieldFilter);
     expect(filter.notOperator).toBeTruthy();
   });
 
   it('should return an instance of FieldFilter with notOperator equals to false', () => {
-    const filter = factory.get({}, 'field', 'value') as any;
+    const filter = factory.get({
+      query: {},
+      key: 'field',
+      value: 'value'
+    }) as any;
     expect(filter).toBeInstanceOf(FieldFilter);
     expect(filter.notOperator).toBeFalsy();
   });
