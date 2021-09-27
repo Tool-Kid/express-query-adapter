@@ -295,7 +295,7 @@ describe('Test QueryBuilder #getOrderCriteria', () => {
 })
 
 
-describe('Test QueryBuilder #setRelations', () => {
+describe('Test QueryBuilder <with>', () => {
   it(`should return a query with no 'with' property`, () => {
     const queryBuilder: QueryBuilder = new QueryBuilder({});
     const query = queryBuilder.build();
@@ -312,6 +312,40 @@ describe('Test QueryBuilder #setRelations', () => {
     const query = queryBuilder.build();
     expect(query).toEqual({
       relations: ['foo1', 'foo2'],
+      skip: 0,
+      take: 25,
+    });
+  })
+})
+
+describe('Test QueryBuilder <select>', () => {
+  it(`should return a query with no 'select' property when no provided`, () => {
+    const queryBuilder: QueryBuilder = new QueryBuilder({});
+    const query = queryBuilder.build();
+    expect(query).toEqual({
+      skip: 0,
+      take: 25,
+    });
+  })
+  it(`should return a query with 'select' property when single selectors provided`, () => {
+    const queryBuilder: QueryBuilder = new QueryBuilder({
+      select: 'foo1,foo2'
+    });
+    const query = queryBuilder.build();
+    expect(query).toEqual({
+      select: ['foo1', 'foo2'],
+      skip: 0,
+      take: 25,
+    });
+  })
+
+  it(`should return a query with 'select' property when single selectors provided`, () => {
+    const queryBuilder: QueryBuilder = new QueryBuilder({
+      select: 'foo1,foo2,foo3.nested'
+    });
+    const query = queryBuilder.build();
+    expect(query).toEqual({
+      select: ['foo1', 'foo2', 'foo3.nested'],
       skip: 0,
       take: 25,
     });
