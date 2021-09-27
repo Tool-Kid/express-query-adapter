@@ -4,7 +4,7 @@ export class RelationsOption extends FilterOption {
 
   public setOption(
     query: { expressQuery: any, typeORMQuery: any }
-  ): { expressQuery: any, typeORMQuery: any } {
+  ): void {
     if (!query.expressQuery['with']) {
       return;
     }
@@ -13,7 +13,6 @@ export class RelationsOption extends FilterOption {
     query.typeORMQuery['relations'] = relations;
 
     delete query.expressQuery['with'];
-    return { expressQuery: query.expressQuery, typeORMQuery: query.typeORMQuery };
   }
 
 }

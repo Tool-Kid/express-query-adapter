@@ -5,7 +5,7 @@ export class PaginationOption extends FilterOption {
 
   public setOption(
     query: { expressQuery: any, typeORMQuery: any }
-  ): { expressQuery: any, typeORMQuery: any } {
+  ): void {
     if (
       query.expressQuery['pagination'] === undefined ||
       query.expressQuery['pagination'] === true
@@ -20,7 +20,6 @@ export class PaginationOption extends FilterOption {
       delete query.expressQuery['limit'];
     }
     delete query.expressQuery['pagination'];
-    return { expressQuery: query.expressQuery, typeORMQuery: query.typeORMQuery };
   }
 
 }

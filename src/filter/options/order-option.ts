@@ -4,7 +4,7 @@ export class OrderOption extends FilterOption {
 
   public setOption(
     query: { expressQuery: any, typeORMQuery: any }
-  ): { expressQuery: any, typeORMQuery: any } {
+  ): void {
     if (!query.expressQuery['order']) {
       return;
     }
@@ -17,7 +17,6 @@ export class OrderOption extends FilterOption {
       }
     }
     delete query.expressQuery['order'];
-    return { expressQuery: query.expressQuery, typeORMQuery: query.typeORMQuery };
   }
 
   private getOrderCriteria(field: string): string {
