@@ -4,7 +4,7 @@ import { PaginationOption } from "./pagination-option";
 import { RelationsOption } from "./relations-option";
 import { SelectOption } from "./select-option";
 
-export class OptionsContainer {
+export class OptionsCollection {
   public readonly options: FilterOption[];
 
   constructor() {

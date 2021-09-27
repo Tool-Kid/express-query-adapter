@@ -1,9 +1,10 @@
 import { LookupDelimiter, LookupFilter } from './field/lookup.enum';
 import { FieldFilter } from './field/field-filter';
 import { AbstractFilter } from './filter';
+import { ExpressQuery } from '../express-query';
 
 interface FilterFactoryQuery {
-  query: any;
+  query: ExpressQuery;
   key: string;
   value: string;
 }

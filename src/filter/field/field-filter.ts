@@ -20,9 +20,9 @@ export class FieldFilter extends AbstractFilter {
     this.notOperator = config.notOperator;
   }
 
-  public buildQuery() {
+  public buildQuery(): void {
 
-    let queryToAdd;
+    let queryToAdd = {};
 
     queryToAdd = this.setQuery(queryToAdd);
 
