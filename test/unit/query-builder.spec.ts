@@ -143,29 +143,32 @@ describe('Test QueryBuilder #setPage', () => {
 
   it('should return a skip equals to 0 when page property is not provided', () => {
     const queryBuilder: any = new QueryBuilder({});
-    queryBuilder.setPage();
-    expect(queryBuilder.typeORMQuery).toEqual({
-      skip: 0
+    const query = queryBuilder.build();
+    expect(query).toEqual({
+      skip: 0,
+      take: 25,
     })
   })
 
   it('should return a skip equals to 0 when page equals to 1', () => {
-    const queryBuilder: any = new QueryBuilder({
+    const queryBuilder: QueryBuilder = new QueryBuilder({
       page: 1
     });
-    queryBuilder.setPage();
-    expect(queryBuilder.typeORMQuery).toEqual({
-      skip: 0
+    const query = queryBuilder.build();
+    expect(query).toEqual({
+      skip: 0,
+      take: 25,
     });
   })
 
   it('should return a skip equals to ITEMS_PER_PAGE when page equals to 2', () => {
-    const queryBuilder: any = new QueryBuilder({
+    const queryBuilder: QueryBuilder = new QueryBuilder({
       page: 2
     });
-    queryBuilder.setPage();
-    expect(queryBuilder.typeORMQuery).toEqual({
-      skip: ITEMS_PER_PAGE
+    const query = queryBuilder.build();
+    expect(query).toEqual({
+      skip: ITEMS_PER_PAGE,
+      take: 25,
     });
   })
 })
@@ -173,30 +176,33 @@ describe('Test QueryBuilder #setPage', () => {
 describe('Test QueryBuilder #setLimit', () => {
 
   it('should return a take equals to ITEMS_PER_PAGE when limit is not provided', () => {
-    const queryBuilder: any = new QueryBuilder({});
-    queryBuilder.setLimit();
-    expect(queryBuilder.typeORMQuery).toEqual({
-      take: ITEMS_PER_PAGE
+    const queryBuilder: QueryBuilder = new QueryBuilder({});
+    const query = queryBuilder.build();
+    expect(query).toEqual({
+      take: ITEMS_PER_PAGE,
+      skip: 0,
     });
   })
 
   it('should return a take equals to ITEMS_PER_PAGE when limit equals to 0', () => {
-    const queryBuilder: any = new QueryBuilder({
+    const queryBuilder: QueryBuilder = new QueryBuilder({
       limit: 0
     });
-    queryBuilder.setLimit();
-    expect(queryBuilder.typeORMQuery).toEqual({
-      take: ITEMS_PER_PAGE
+    const query = queryBuilder.build();
+    expect(query).toEqual({
+      take: ITEMS_PER_PAGE,
+      skip: 0,
     });
   })
 
   it('should return a take equals to 1 when limit equals to 1', () => {
-    const queryBuilder: any = new QueryBuilder({
+    const queryBuilder: QueryBuilder = new QueryBuilder({
       limit: 1
     });
-    queryBuilder.setLimit();
-    expect(queryBuilder.typeORMQuery).toEqual({
-      take: 1
+    const query = queryBuilder.build();
+    expect(query).toEqual({
+      take: 1,
+      skip: 0,
     });
   })
 })
@@ -205,40 +211,47 @@ describe('Test QueryBuilder #setLimit', () => {
 describe('Test QueryBuilder #setOrder', () => {
 
   it('should return a query with no order property', () => {
-    const queryBuilder: any = new QueryBuilder({});
-    queryBuilder.setOrder();
-    expect(queryBuilder.typeORMQuery).toEqual({});
+    const queryBuilder: QueryBuilder = new QueryBuilder({});
+    const query = queryBuilder.build();
+    expect(query).toEqual({
+      skip: 0,
+      take: 25,
+    });
   })
 
   it('should return a query with order equals to foo:ASC', () => {
-    const queryBuilder: any = new QueryBuilder({
+    const queryBuilder: QueryBuilder = new QueryBuilder({
       order: '+foo'
     });
-    queryBuilder.setOrder();
-    expect(queryBuilder.typeORMQuery).toEqual({
+    const query = queryBuilder.build();
+    expect(query).toEqual({
       order: {
         foo: 'ASC'
-      }
+      },
+      skip: 0,
+      take: 25,
     });
   })
 
   it('should return a query with order equals to foo:DESC', () => {
-    const queryBuilder: any = new QueryBuilder({
+    const queryBuilder: QueryBuilder = new QueryBuilder({
       order: '-foo'
     });
-    queryBuilder.setOrder();
-    expect(queryBuilder.typeORMQuery).toEqual({
+    const query = queryBuilder.build();
+    expect(query).toEqual({
       order: {
         foo: 'DESC'
-      }
+      },
+      skip: 0,
+      take: 25,
     });
   })
 
   it('should thrown an error when order criteria is not provided', () => {
-    const queryBuilder: any = new QueryBuilder({
+    const queryBuilder: QueryBuilder = new QueryBuilder({
       order: 'foo'
     });
-    expect(() => queryBuilder.setOrder()).toThrow();
+    expect(() => queryBuilder.build()).toThrow();
   })
 })
 
@@ -246,15 +259,31 @@ describe('Test QueryBuilder #setOrder', () => {
 describe('Test QueryBuilder #getOrderCriteria', () => {
 
   it('should return a query with order equals to foo:ASC', () => {
-    const queryBuilder: any = new QueryBuilder({});
-    const orderCriteria = queryBuilder.getOrderCriteria('+foo');
-    expect(orderCriteria).toBe('ASC');
+    const queryBuilder: QueryBuilder = new QueryBuilder({
+      order: '+foo',
+    });
+    const query = queryBuilder.build();
+    expect(query).toStrictEqual({
+      order: {
+        foo: 'ASC',
+      },
+      skip: 0,
+      take: 25,
+    });
   })
 
   it('should return a query with order equals to foo:DESC', () => {
-    const queryBuilder: any = new QueryBuilder({});
-    const orderCriteria = queryBuilder.getOrderCriteria('-foo');
-    expect(orderCriteria).toBe('DESC');
+    const queryBuilder: QueryBuilder = new QueryBuilder({
+      order: '-foo',
+    });
+    const query = queryBuilder.build();
+    expect(query).toStrictEqual({
+      order: {
+        foo: 'DESC',
+      },
+      skip: 0,
+      take: 25,
+    })
   })
 
   it('should thrown an error when order criteria is not provided', () => {
@@ -268,19 +297,23 @@ describe('Test QueryBuilder #getOrderCriteria', () => {
 
 describe('Test QueryBuilder #setRelations', () => {
   it(`should return a query with no 'with' property`, () => {
-    const queryBuilder: any = new QueryBuilder({});
-    queryBuilder.setOrder();
-    expect(queryBuilder.typeORMQuery).toEqual({});
+    const queryBuilder: QueryBuilder = new QueryBuilder({});
+    const query = queryBuilder.build();
+    expect(query).toEqual({
+      skip: 0,
+      take: 25,
+    });
   })
 
   it(`should return a query with relationse equal to ['foo1', 'foo2']`, () => {
-    const queryBuilder: any = new QueryBuilder({
+    const queryBuilder: QueryBuilder = new QueryBuilder({
       with: 'foo1,foo2'
     });
-    queryBuilder.setRelations();
-    expect(queryBuilder.typeORMQuery).toEqual({
-      relations: ['foo1', 'foo2']
+    const query = queryBuilder.build();
+    expect(query).toEqual({
+      relations: ['foo1', 'foo2'],
+      skip: 0,
+      take: 25,
     });
-    expect(queryBuilder.expressQuery['with']).toBeUndefined()
   })
 })
