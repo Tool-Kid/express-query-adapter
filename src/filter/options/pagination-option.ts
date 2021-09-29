@@ -1,4 +1,4 @@
-import { ITEMS_PER_PAGE } from "../../default-config";
+import { ITEMS_PER_PAGE } from "../../profile/default-config";
 import { FilterOption, FilterOptionQuery } from "./filter-option";
 
 export class PaginationOption extends FilterOption {

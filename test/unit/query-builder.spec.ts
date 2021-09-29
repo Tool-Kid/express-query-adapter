@@ -1,6 +1,6 @@
 import { QueryBuilder } from '../../src/query-builder';
 import { Like } from 'typeorm';
-import { ITEMS_PER_PAGE } from '../../src/default-config';
+import { ITEMS_PER_PAGE } from '../../src/profile/default-config';
 
 
 describe('Test Query Builder #build', () => {
