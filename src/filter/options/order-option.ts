@@ -1,10 +1,16 @@
+import { ConfigProfile } from "../../profile/config-profile";
 import { FilterOption, FilterOptionQuery } from "./filter-option";
 
-export class OrderOption extends FilterOption {
+export class OrderOption implements FilterOption {
 
   public setOption(
-    query: FilterOptionQuery
+    query: FilterOptionQuery,
+    profile: ConfigProfile,
   ): void {
+    if (!this.isAuthorized(profile)) {
+      delete query.source['order'];
+      return;
+    }
     if (!query.source['order']) {
       return;
     }
@@ -27,6 +33,13 @@ export class OrderOption extends FilterOption {
     } else {
       throw new Error(`No order set for <${field}>. Prefix with one of these: [+, -]`);
     }
+  }
+
+  public isAuthorized(profile: ConfigProfile): boolean {
+    if (profile.options.ordering.status === 'disabled') {
+      return false;
+    }
+    return true;
   }
 
 }
