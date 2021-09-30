@@ -1,3 +1,3 @@
 export interface EnableableOption {
-  status: 'enabled' | 'disabled';
+  status: 'enabled' | 'disabled'
 }

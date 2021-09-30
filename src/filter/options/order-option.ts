@@ -1,45 +1,42 @@
-import { ConfigProfile } from "../../profile/config-profile";
-import { FilterOption, FilterOptionQuery } from "./filter-option";
+import { ConfigProfile } from '../../profile/config-profile'
+import { FilterOption, FilterOptionQuery } from './filter-option'
 
 export class OrderOption implements FilterOption {
-
-  public setOption(
-    query: FilterOptionQuery,
-    profile: ConfigProfile,
-  ): void {
+  public setOption(query: FilterOptionQuery, profile: ConfigProfile): void {
     if (!this.isAuthorized(profile)) {
-      delete query.source['order'];
-      return;
+      delete query.source['order']
+      return
     }
     if (!query.source['order']) {
-      return;
+      return
     }
-    const orderFields = query.source['order'].split(',');
+    const orderFields = query.source['order'].split(',')
     for (const field of orderFields) {
-      const orderCriteria = this.getOrderCriteria(field);
+      const orderCriteria = this.getOrderCriteria(field)
       query.target['order'] = {
         ...query.target['order'],
-        [field.substr(1, field.length)]: orderCriteria
+        [field.substr(1, field.length)]: orderCriteria,
       }
     }
-    delete query.source['order'];
+    delete query.source['order']
   }
 
   private getOrderCriteria(field: string): string {
     if (field.startsWith('+')) {
-      return 'ASC';
+      return 'ASC'
     } else if (field.startsWith('-')) {
-      return 'DESC';
+      return 'DESC'
     } else {
-      throw new Error(`No order set for <${field}>. Prefix with one of these: [+, -]`);
+      throw new Error(
+        `No order set for <${field}>. Prefix with one of these: [+, -]`
+      )
     }
   }
 
   public isAuthorized(profile: ConfigProfile): boolean {
     if (profile.options.ordering.status === 'disabled') {
-      return false;
+      return false
     }
-    return true;
+    return true
   }
-
 }

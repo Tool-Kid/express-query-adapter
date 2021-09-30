@@ -1,3 +1,3 @@
-import { FindManyOptions } from "typeorm";
+import { FindManyOptions } from 'typeorm'
 
-export type TypeORMQuery = FindManyOptions;
+export type TypeORMQuery = FindManyOptions

@@ -1,7 +1,7 @@
-import { FindPolicyType } from "./find-policy";
-import { ProfileOptions } from "./profile-options";
+import { FindPolicyType } from './find-policy'
+import { ProfileOptions } from './profile-options'
 
 export interface ConfigProfile {
-  options: ProfileOptions,
-  policy: FindPolicyType;
+  options: ProfileOptions
+  policy: FindPolicyType
 }

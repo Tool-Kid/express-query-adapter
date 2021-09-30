@@ -3,4 +3,4 @@ export enum FindPolicy {
   Throw = 'throw',
 }
 
-export type FindPolicyType = `${FindPolicy}`;
+export type FindPolicyType = `${FindPolicy}`

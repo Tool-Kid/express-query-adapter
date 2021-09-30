@@ -1,13 +1,13 @@
-import { TypeORMQuery } from "../../typeorm-query";
-import { ExpressQuery } from "../../express-query";
-import { ConfigProfile } from "../../profile/config-profile";
+import { TypeORMQuery } from '../../typeorm-query'
+import { ExpressQuery } from '../../express-query'
+import { ConfigProfile } from '../../profile/config-profile'
 
 export interface FilterOptionQuery {
-  source: ExpressQuery;
+  source: ExpressQuery
   target: TypeORMQuery
 }
 
 export interface FilterOption {
-  setOption(query: FilterOptionQuery, profile: ConfigProfile): void;
-  isAuthorized(profile: ConfigProfile): boolean;
+  setOption(query: FilterOptionQuery, profile: ConfigProfile): void
+  isAuthorized(profile: ConfigProfile): boolean
 }

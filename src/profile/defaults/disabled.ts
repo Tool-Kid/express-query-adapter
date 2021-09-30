@@ -1,4 +1,4 @@
-import { ConfigProfile } from "../config-profile";
+import { ConfigProfile } from '../config-profile'
 
 export const DISABLED_PROFILE: ConfigProfile = {
   options: {
@@ -18,4 +18,4 @@ export const DISABLED_PROFILE: ConfigProfile = {
     },
   },
   policy: 'skip',
-};
+}
