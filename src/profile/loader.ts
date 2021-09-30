@@ -3,7 +3,7 @@ import { DISABLED_PROFILE, ENABLED_PROFILE } from "./defaults";
 
 export const loadProfile = (profile: 'enabled' | 'disabled' | ConfigProfile): ConfigProfile => {
   if (!profile) {
-    return DISABLED_PROFILE;
+    return ENABLED_PROFILE;
   }
   if (profile === 'enabled') {
     return ENABLED_PROFILE;
