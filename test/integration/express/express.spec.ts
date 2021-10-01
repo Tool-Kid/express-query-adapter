@@ -1,16 +1,16 @@
-import express = require('express')
-import request = require('supertest')
-import bodyParser = require('body-parser')
+import * as express from 'express'
+import * as request from 'supertest'
 import { QueryBuilder } from '../../../src/query-builder'
 import { Like } from 'typeorm'
+import { Server } from 'http'
 
 describe('Test Express integration', () => {
-  let server
+  let server: Server
 
   beforeAll((done) => {
-    let app = express()
-    app.use(bodyParser.json())
-    app.use(bodyParser.urlencoded({ extended: true }))
+    const app = express()
+    app.use(express.json())
+    app.use(express.urlencoded({ extended: true }))
     app.get('/get', (req, res) => {
       const queryBuilder = new QueryBuilder(req.query)
       const built = queryBuilder.build()
