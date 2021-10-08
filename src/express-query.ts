@@ -1,1 +1,1 @@
-export type ExpressQuery = Record<string, any>;
+export type ExpressQuery = Record<string, any>

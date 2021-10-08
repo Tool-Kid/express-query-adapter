@@ -1,39 +1,38 @@
-import express = require('express');
-import request = require('supertest');
-import bodyParser = require('body-parser');
-import { QueryBuilder } from '../../../src/query-builder';
-import { Like } from 'typeorm';
+import * as express from 'express'
+import * as request from 'supertest'
+import { QueryBuilder } from '../../../src/query-builder'
+import { Like } from 'typeorm'
+import { Server } from 'http'
 
 describe('Test Express integration', () => {
-
-  let server;
+  let server: Server
 
   beforeAll((done) => {
-    let app = express();
-    app.use(bodyParser.json());
-    app.use(bodyParser.urlencoded({extended: true}));
+    const app = express()
+    app.use(express.json())
+    app.use(express.urlencoded({ extended: true }))
     app.get('/get', (req, res) => {
-      const queryBuilder = new QueryBuilder(req.query);
-      const built = queryBuilder.build();
-      res.send(built);
-    });
+      const queryBuilder = new QueryBuilder(req.query)
+      const built = queryBuilder.build()
+      res.send(built)
+    })
     app.post('/post_urlquery', (req, res) => {
-      const queryBuilder = new QueryBuilder(req.query);
-      const built = queryBuilder.build();
-      res.send(built);
-    });
+      const queryBuilder = new QueryBuilder(req.query)
+      const built = queryBuilder.build()
+      res.send(built)
+    })
     app.post('/post_body', (req, res) => {
-      const queryBuilder = new QueryBuilder(req.body);
-      const built = queryBuilder.build();
-      res.send(built);
-    });
+      const queryBuilder = new QueryBuilder(req.body)
+      const built = queryBuilder.build()
+      res.send(built)
+    })
     server = app.listen(3000, () => {
-      done();
-    });
+      done()
+    })
   })
 
   afterAll(() => {
-    server.close();
+    server.close()
   })
 
   it('should return an appropiate query built for GET /get?...', (done) => {
@@ -44,12 +43,12 @@ describe('Test Express integration', () => {
         expect(JSON.parse(res.text)).toEqual({
           where: {
             name: 'rjlopezdev',
-            email: Like('%@gmail.com%')
+            email: Like('%@gmail.com%'),
           },
           skip: 0,
-          take: 25
-        });
-        done();
+          take: 25,
+        })
+        done()
       })
   })
 
@@ -61,12 +60,12 @@ describe('Test Express integration', () => {
         expect(JSON.parse(res.text)).toEqual({
           where: {
             name: 'rjlopezdev',
-            email: Like('%@gmail.com%')
+            email: Like('%@gmail.com%'),
           },
           skip: 0,
-          take: 25
-        });
-        done();
+          take: 25,
+        })
+        done()
       })
   })
 
@@ -75,20 +74,19 @@ describe('Test Express integration', () => {
       .post('/post_body')
       .send({
         name: 'rjlopezdev',
-        email__contains: '@gmail.com'
+        email__contains: '@gmail.com',
       })
       .expect(200)
       .end((err, res) => {
         expect(JSON.parse(res.text)).toEqual({
           where: {
             name: 'rjlopezdev',
-            email: Like('%@gmail.com%')
+            email: Like('%@gmail.com%'),
           },
           skip: 0,
-          take: 25
-        });
-        done();
+          take: 25,
+        })
+        done()
       })
   })
-
 })

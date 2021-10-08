@@ -1,18 +1,26 @@
-import { FilterOption, FilterOptionQuery } from "./filter-option";
+import { ConfigProfile } from '../../profile/config-profile'
+import { FilterOption, FilterOptionQuery } from './filter-option'
 
-export class RelationsOption extends FilterOption {
-
-  public setOption(
-    query: FilterOptionQuery
-  ): void {
+export class RelationsOption implements FilterOption {
+  public setOption(query: FilterOptionQuery, profile: ConfigProfile): void {
+    if (!this.isAuthorized(profile)) {
+      delete query.source['with']
+      return
+    }
     if (!query.source['with']) {
-      return;
+      return
     }
 
-    const relations = query.source['with'].split(',');
-    query.target['relations'] = relations;
+    const relations = query.source['with'].split(',')
+    query.target['relations'] = relations
 
-    delete query.source['with'];
+    delete query.source['with']
   }
 
+  public isAuthorized(profile: ConfigProfile): boolean {
+    if (profile.options.relations.status === 'disabled') {
+      return false
+    }
+    return true
+  }
 }
