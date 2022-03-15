@@ -1,5 +1,6 @@
 import {
   Like,
+  ILike,
   IsNull,
   MoreThan,
   MoreThanOrEqual,
@@ -57,6 +58,39 @@ describe('Test FieldFilter #buildQuery', () => {
     })
     fieldFilter.buildQuery()
     expect(built['where']['name']).toEqual(Like('%value'))
+  })
+
+  it('should return a <icontains> filter', () => {
+    const fieldFilter = new FieldFilter({
+      query: built,
+      prop: 'name',
+      lookup: LookupFilter.ICONTAINS,
+      value: 'value',
+    })
+    fieldFilter.buildQuery()
+    expect(built['where']['name']).toEqual(ILike('%value%'))
+  })
+
+  it('should return an <istartswith> contains filter', () => {
+    const fieldFilter = new FieldFilter({
+      query: built,
+      prop: 'name',
+      lookup: LookupFilter.ISTARTS_WITH,
+      value: 'value',
+    })
+    fieldFilter.buildQuery()
+    expect(built['where']['name']).toEqual(ILike('value%'))
+  })
+
+  it('should return an <iendswith> filter', () => {
+    const fieldFilter = new FieldFilter({
+      query: built,
+      prop: 'name',
+      lookup: LookupFilter.IENDS_WITH,
+      value: 'value',
+    })
+    fieldFilter.buildQuery()
+    expect(built['where']['name']).toEqual(ILike('%value'))
   })
 
   it('should return an <isnull> filter', () => {
