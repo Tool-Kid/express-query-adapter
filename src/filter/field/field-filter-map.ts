@@ -1,6 +1,7 @@
 import { LookupFilter } from './lookup.enum'
 import {
   Like,
+  ILike,
   IsNull,
   LessThan,
   LessThanOrEqual,
@@ -39,6 +40,24 @@ export const LOOKUP_FILTER_MAP: Map<LookupFilter, BuildQueryFunction> = new Map(
       LookupFilter.ENDS_WITH,
       {
         build: (prop, value) => ({ [prop]: Like(`%${value}`) }),
+      },
+    ],
+    [
+      LookupFilter.ICONTAINS,
+      {
+        build: (prop, value) => ({ [prop]: ILike(`%${value}%`) }),
+      },
+    ],
+    [
+      LookupFilter.ISTARTS_WITH,
+      {
+        build: (prop, value) => ({ [prop]: ILike(`${value}%`) }),
+      },
+    ],
+    [
+      LookupFilter.IENDS_WITH,
+      {
+        build: (prop, value) => ({ [prop]: ILike(`%${value}`) }),
       },
     ],
     [

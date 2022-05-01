@@ -1,6 +1,7 @@
 export enum LookupFilter {
   EXACT = 'exact',
   CONTAINS = 'contains',
+  ICONTAINS = 'icontains',
   IS_NULL = 'isnull',
   GT = 'gt',
   GTE = 'gte',
@@ -8,6 +9,8 @@ export enum LookupFilter {
   LTE = 'lte',
   STARTS_WITH = 'startswith',
   ENDS_WITH = 'endswith',
+  ISTARTS_WITH = 'istartswith',
+  IENDS_WITH = 'iendswith',
   IN = 'in',
   BETWEEN = 'between',
   NOT = 'not',
