@@ -13,7 +13,6 @@ export enum LookupFilter {
   IENDS_WITH = 'iendswith',
   IN = 'in',
   BETWEEN = 'between',
-  BETWEEN_DATES = 'between_dates',
   NOT = 'not',
 }
 
