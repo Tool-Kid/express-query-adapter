@@ -1,109 +1,35 @@
 import { LookupFilter } from './lookup.enum'
+import { LookupBuilder } from './lookup'
 import {
-  Like,
-  ILike,
-  IsNull,
-  LessThan,
-  LessThanOrEqual,
-  MoreThan,
-  MoreThanOrEqual,
-  In,
-  Between,
-  FindOptionsUtils,
-} from 'typeorm'
+  BetweenLookup,
+  ContainsLookup,
+  EndsWithLookup,
+  ExactLookup,
+  GreaterThanLookup,
+  GreaterThanOrEqualLookup,
+  InLookup,
+  InsensitiveContainsLookup,
+  InsensitiveEndsWithLookup,
+  InsensitiveStartsWithLookup,
+  IsNullLookup,
+  LowerThanLookup,
+  LowerThanOrEqualLookup,
+  StartsWithLookup,
+} from './lookups'
 
-interface BuildQueryFunction {
-  build: (prop: string, value: string) => Record<string, FindOptionsUtils>
-}
-
-export const LOOKUP_FILTER_MAP: Map<LookupFilter, BuildQueryFunction> = new Map(
-  [
-    [
-      LookupFilter.EXACT,
-      {
-        build: (prop, value) => ({ [prop]: value }),
-      },
-    ],
-    [
-      LookupFilter.CONTAINS,
-      {
-        build: (prop, value) => ({ [prop]: Like(`%${value}%`) }),
-      },
-    ],
-    [
-      LookupFilter.STARTS_WITH,
-      {
-        build: (prop, value) => ({ [prop]: Like(`${value}%`) }),
-      },
-    ],
-    [
-      LookupFilter.ENDS_WITH,
-      {
-        build: (prop, value) => ({ [prop]: Like(`%${value}`) }),
-      },
-    ],
-    [
-      LookupFilter.ICONTAINS,
-      {
-        build: (prop, value) => ({ [prop]: ILike(`%${value}%`) }),
-      },
-    ],
-    [
-      LookupFilter.ISTARTS_WITH,
-      {
-        build: (prop, value) => ({ [prop]: ILike(`${value}%`) }),
-      },
-    ],
-    [
-      LookupFilter.IENDS_WITH,
-      {
-        build: (prop, value) => ({ [prop]: ILike(`%${value}`) }),
-      },
-    ],
-    [
-      LookupFilter.IS_NULL,
-      {
-        build: (prop) => ({ [prop]: IsNull() }),
-      },
-    ],
-    [
-      LookupFilter.LT,
-      {
-        build: (prop, value) => ({ [prop]: LessThan(value) }),
-      },
-    ],
-    [
-      LookupFilter.LTE,
-      {
-        build: (prop, value) => ({ [prop]: LessThanOrEqual(value) }),
-      },
-    ],
-    [
-      LookupFilter.GT,
-      {
-        build: (prop, value) => ({ [prop]: MoreThan(value) }),
-      },
-    ],
-    [
-      LookupFilter.GTE,
-      {
-        build: (prop, value) => ({ [prop]: MoreThanOrEqual(value) }),
-      },
-    ],
-    [
-      LookupFilter.IN,
-      {
-        build: (prop, value) => ({ [prop]: In(value.split(',')) }),
-      },
-    ],
-    [
-      LookupFilter.BETWEEN,
-      {
-        build: (prop, value) => {
-          const rangeValues = value.split(',')
-          return { [prop]: Between(+rangeValues[0], +rangeValues[1]) }
-        },
-      },
-    ],
-  ]
-)
+export const LOOKUP_FILTER_MAP: Map<LookupFilter, LookupBuilder> = new Map([
+  [LookupFilter.EXACT, new ExactLookup()],
+  [LookupFilter.CONTAINS, new ContainsLookup()],
+  [LookupFilter.STARTS_WITH, new StartsWithLookup()],
+  [LookupFilter.ENDS_WITH, new EndsWithLookup()],
+  [LookupFilter.ICONTAINS, new InsensitiveContainsLookup()],
+  [LookupFilter.ISTARTS_WITH, new InsensitiveStartsWithLookup()],
+  [LookupFilter.IENDS_WITH, new InsensitiveEndsWithLookup()],
+  [LookupFilter.IS_NULL, new IsNullLookup()],
+  [LookupFilter.LT, new LowerThanLookup()],
+  [LookupFilter.LTE, new LowerThanOrEqualLookup()],
+  [LookupFilter.GT, new GreaterThanLookup()],
+  [LookupFilter.GTE, new GreaterThanOrEqualLookup()],
+  [LookupFilter.IN, new InLookup()],
+  [LookupFilter.BETWEEN, new BetweenLookup()],
+])

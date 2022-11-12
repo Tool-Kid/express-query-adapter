@@ -119,7 +119,7 @@ app.post('/foo', (req, res) => {
 | **gt**          | Returns entries with value greater than provided            | `foo__gt=18`           |
 | **gte**         | Return entries with value greater than or equal to provided | `foo__gte=18`          |
 | **in**          | Return entries that match with values in list               | `foo__in=admin,common` |
-| **between**     | Return entries in range                                     | `foo__between=1,27`    |
+| **between**     | Return entries in range (numeric, dates)                    | `foo__between=1,27`    |
 
 **Notice**: you can use negative logic prefixing lookup with `__not`.
 

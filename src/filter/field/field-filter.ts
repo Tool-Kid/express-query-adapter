@@ -37,7 +37,8 @@ export class FieldFilter extends AbstractFilter {
   }
 
   private setQuery(queryToAdd: TypeORMQuery) {
-    queryToAdd = LOOKUP_FILTER_MAP.get(this.lookup).build(this.prop, this.value)
+    const builder = LOOKUP_FILTER_MAP.get(this.lookup)
+    queryToAdd = builder.build(this.prop, this.value)
     return queryToAdd
   }
 }
