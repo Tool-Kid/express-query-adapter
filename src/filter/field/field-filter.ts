@@ -1,4 +1,4 @@
-import { LOOKUP_FILTER_MAP } from './field-filter-map'
+import { LookupBuilderFactory } from './lookup-builder-factory'
 import { Not } from 'typeorm'
 import { AbstractFilter } from '../filter'
 import { LookupFilter } from './lookup.enum'
@@ -14,11 +14,13 @@ interface FilterConfig {
 }
 
 export class FieldFilter extends AbstractFilter {
-  private notOperator: boolean
+  private readonly notOperator: boolean
+  private readonly lookupBuilderFactory: LookupBuilderFactory
 
   constructor(config: FilterConfig) {
     super(config.query, config.prop, config.lookup, config.value)
     this.notOperator = config.notOperator
+    this.lookupBuilderFactory = new LookupBuilderFactory()
   }
 
   public buildQuery(): void {
@@ -37,7 +39,7 @@ export class FieldFilter extends AbstractFilter {
   }
 
   private setQuery(queryToAdd: TypeORMQuery) {
-    const builder = LOOKUP_FILTER_MAP.get(this.lookup)
+    const builder = this.lookupBuilderFactory.build(this.lookup)
     queryToAdd = builder.build(this.prop, this.value)
     return queryToAdd
   }

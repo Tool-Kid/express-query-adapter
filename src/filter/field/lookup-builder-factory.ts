@@ -17,7 +17,7 @@ import {
   StartsWithLookup,
 } from './lookups'
 
-export const LOOKUP_FILTER_MAP: Map<LookupFilter, LookupBuilder> = new Map([
+const LOOKUP_FILTER_MAP: Map<LookupFilter, LookupBuilder> = new Map([
   [LookupFilter.EXACT, new ExactLookup()],
   [LookupFilter.CONTAINS, new ContainsLookup()],
   [LookupFilter.STARTS_WITH, new StartsWithLookup()],
@@ -33,3 +33,12 @@ export const LOOKUP_FILTER_MAP: Map<LookupFilter, LookupBuilder> = new Map([
   [LookupFilter.IN, new InLookup()],
   [LookupFilter.BETWEEN, new BetweenLookup()],
 ])
+
+export class LookupBuilderFactory {
+  private readonly lookups = LOOKUP_FILTER_MAP
+
+  build(lookup: LookupFilter): LookupBuilder {
+    const builder = this.lookups.get(lookup)
+    return builder
+  }
+}
