@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="./logo.png" alt="TypeORM Express Query Builder logo" width="250" height="187">
+  <img src="https://raw.githubusercontent.com/rjlopezdev/typeorm-express-query-builder/master/logo.png" alt="TypeORM Express Query Builder logo" width="250" height="187">
 </p>
 
 <h1 align="center"> TypeORM Express Query Builder </h1>
@@ -25,7 +25,7 @@
   <a href="LICENSE"> License </a>
 </p>
 
-# TypeORM Express Query Builder
+# Purpose
 
 This library allows you to transfrom automatically Express.js _req.query_ into TypeORM findOptions queries.
 
@@ -33,11 +33,11 @@ This library allows you to transfrom automatically Express.js _req.query_ into T
 
 `npm install typeorm-express-query-builder`
 
-## How it works?
+# How it works?
 
 ![](https://raw.githubusercontent.com/rjlopezdev/typeorm-express-query-builder/master/typeorm-express-pipeline.png)
 
-## Usage
+# Usage
 
 Use QueryBuilder export from package and pass your `req.query` as an argument:
 
@@ -68,9 +68,9 @@ It will be transformed into:
 }
 ```
 
-## Different ways of retrieve data
+# Different ways of retrieve data
 
-### GET, POST method by url query string
+## GET, POST method by url query string
 
 `GET foo/?name__contains=foo&role__in=admin,common&age__gte=18&page=3&limit=10`
 
@@ -83,7 +83,7 @@ app.get('/foo', (req, res) => {
 })
 ```
 
-### POST method by body
+## POST method by body
 
 ```javascript
 POST foo/, body: {
@@ -102,7 +102,7 @@ app.post('/foo', (req, res) => {
 })
 ```
 
-## Available Lookups
+# Available Lookups
 
 | Lookup          | Behaviour                                                   | Example                |
 | --------------- | ----------------------------------------------------------- | ---------------------- |
@@ -126,9 +126,9 @@ app.post('/foo', (req, res) => {
 _Example:_
 `foo__not__contains=value`
 
-## Options
+# Options
 
-### Pagination
+## Pagination
 
 | Option     | Default  | Behaviour                                                   | Example            |
 | ---------- | :------: | ----------------------------------------------------------- | ------------------ |
@@ -136,20 +136,20 @@ _Example:_
 | page       |  **1**   | Return entries for page `page`                              | `page=2`           |
 | limit      |  **25**  | Return entries for page `page` paginated by size `limit`    | `limit=15`         |
 
-### Ordering
+## Ordering
 
 | Option | Default | Behaviour                                                | Example                     |
 | ------ | :-----: | -------------------------------------------------------- | --------------------------- |
 | order  |    -    | Order for fields:<br>`+`: Ascendant <br> `-`: Descendant | `order=+foo,-name,+surname` |
 
-### Selection
+## Selection
 
 | Option | Default | Behaviour                                                           | Example                          |
 | ------ | :-----: | ------------------------------------------------------------------- | -------------------------------- |
 | select |    -    | Fields to select as response. If no provided, it select all fields. | `select=name,surname,foo.nested` |
 | with   |    -    | Entity relations to attach to query                                 | `with=posts,comments`            |
 
-## Profile
+# Profile
 
 If you need to disable some capabilities, you can do using shortcuts to `enable|disable` by default or provide a custom Profile.
 
@@ -159,7 +159,7 @@ A Profile describe capabilities that can be used by clients & its behaviour.
 const qb = new QueryBuilder(req.query, 'enabled' | 'disabled' | ConfigProgile)
 ```
 
-### ConfigProfile
+## ConfigProfile
 
 `ConfigProfile` object looks like:
 
