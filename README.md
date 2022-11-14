@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="https://raw.githubusercontent.com/rjlopezdev/typeorm-express-query-builder/master/logo.jpg" alt="TypeORM Express Query Builder logo" width="200" height="200">
+  <img src="./logo.png" alt="TypeORM Express Query Builder logo" width="250" height="187">
 </p>
 
 <h1 align="center"> TypeORM Express Query Builder </h1>
