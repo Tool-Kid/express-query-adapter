@@ -11,24 +11,44 @@ interface FilterFactoryQuery {
 
 export class FilterFactory {
   public get(query: FilterFactoryQuery): AbstractFilter {
-    if (this.isFieldFilter(query.key)) {
-      const prop = query.key.split(LookupDelimiter.LOOKUP_DELIMITER)[0]
-      const notOperator = query.key.includes(
-        `${LookupDelimiter.LOOKUP_DELIMITER}${LookupFilter.NOT}`
-      )
-      const lookup = query.key.includes(LookupDelimiter.LOOKUP_DELIMITER)
-        ? (query.key.split(LookupDelimiter.LOOKUP_DELIMITER)[
-            notOperator ? 2 : 1
-          ] as LookupFilter)
-        : LookupFilter.EXACT
-      return new FieldFilter({
-        query: query.query,
-        prop,
-        lookup,
-        value: query.value,
-        notOperator,
-      })
+    if (!this.isFieldFilter(query.key)) {
+      return
     }
+    const prop = this.getProp(query)
+    const hasNotOperator = this.hasNotOperator(query)
+    const lookup = this.getLookupFilter(query, hasNotOperator)
+    return new FieldFilter({
+      query: query.query,
+      prop,
+      lookup,
+      value: query.value,
+      notOperator: hasNotOperator,
+    })
+  }
+
+  private getLookupFilter(
+    query: FilterFactoryQuery,
+    hasNotOperator: boolean
+  ): LookupFilter {
+    const includesLookupDelimiter = query.key.includes(
+      LookupDelimiter.LOOKUP_DELIMITER
+    )
+    if (!includesLookupDelimiter) {
+      return LookupFilter.EXACT
+    }
+    return query.key.split(LookupDelimiter.LOOKUP_DELIMITER)[
+      hasNotOperator ? 2 : 1
+    ] as LookupFilter
+  }
+
+  private getProp(query: FilterFactoryQuery) {
+    return query.key.split(LookupDelimiter.LOOKUP_DELIMITER)[0]
+  }
+
+  private hasNotOperator(query: FilterFactoryQuery) {
+    return query.key.includes(
+      `${LookupDelimiter.LOOKUP_DELIMITER}${LookupFilter.NOT}`
+    )
   }
 
   private isFieldFilter(key: string): boolean {
