@@ -3,19 +3,19 @@ import {
   DISABLED_PROFILE,
   ENABLED_PROFILE,
 } from '../../../src/profile/defaults'
-import { loadProfile } from '../../../src/profile/loader'
+import { ProfileLoader } from '../../../src/profile/loader'
 
 describe('Profile loader', () => {
-  const qb = loadProfile
+  const loader = new ProfileLoader()
 
   it('should return ENABLED_PROFILE when no profile provided', () => {
-    expect(qb(null)).toEqual(ENABLED_PROFILE)
+    expect(loader.load(null as any)).toEqual(ENABLED_PROFILE)
   })
   it('should return ENABLED_PROFILE when "enabled" strategy provided', () => {
-    expect(qb('enabled')).toEqual(ENABLED_PROFILE)
+    expect(loader.load('enabled')).toEqual(ENABLED_PROFILE)
   })
   it('should return DISABLED_PROFILE when "disabled" strategy provided', () => {
-    expect(qb('disabled')).toEqual(DISABLED_PROFILE)
+    expect(loader.load('disabled')).toEqual(DISABLED_PROFILE)
   })
   it('should return a custom profile when provided', () => {
     const customProfile: ConfigProfile = {
@@ -25,6 +25,6 @@ describe('Profile loader', () => {
         ordering: { status: 'disabled' },
       },
     }
-    expect(qb(customProfile)).toEqual(customProfile)
+    expect(loader.load(customProfile)).toEqual(customProfile)
   })
 })
