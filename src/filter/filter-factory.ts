@@ -30,11 +30,15 @@ export class FilterFactory {
     query: FilterFactoryQuery,
     hasNotOperator: boolean
   ): LookupFilter {
-    return query.key.includes(LookupDelimiter.LOOKUP_DELIMITER)
-      ? (query.key.split(LookupDelimiter.LOOKUP_DELIMITER)[
-          hasNotOperator ? 2 : 1
-        ] as LookupFilter)
-      : LookupFilter.EXACT
+    const includesLookupDelimiter = query.key.includes(
+      LookupDelimiter.LOOKUP_DELIMITER
+    )
+    if (!includesLookupDelimiter) {
+      return LookupFilter.EXACT
+    }
+    return query.key.split(LookupDelimiter.LOOKUP_DELIMITER)[
+      hasNotOperator ? 2 : 1
+    ] as LookupFilter
   }
 
   private getProp(query: FilterFactoryQuery) {

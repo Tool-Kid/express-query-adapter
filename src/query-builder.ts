@@ -11,8 +11,8 @@ export class QueryBuilder {
   private typeORMQuery: TypeORMQuery
 
   private readonly profile: ConfigProfile
-  private readonly findOptions: OptionsCollection
-  private readonly filterFactory: FilterFactory
+  private readonly findOptions: OptionsCollection = new OptionsCollection()
+  private readonly filterFactory: FilterFactory = new FilterFactory()
 
   constructor(
     expressQuery: ExpressQuery,
@@ -21,8 +21,6 @@ export class QueryBuilder {
     this.expressQuery = expressQuery
     this.typeORMQuery = {}
     this.profile = loadProfile(profile)
-    this.findOptions = new OptionsCollection()
-    this.filterFactory = new FilterFactory()
   }
 
   public build(): FindManyOptions {
