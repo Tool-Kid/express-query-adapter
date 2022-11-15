@@ -1,6 +1,6 @@
-import { ExpressQuery } from 'express-query'
-import { QueryBuilderFactory } from 'factory'
-import { QueryBuilder } from 'query-builder'
+import { ExpressQuery } from './express-query'
+import { QueryBuilderFactory } from './factory'
+import { QueryBuilder } from './query-builder'
 import { ConfigProfile } from './profile'
 
 interface Config {
