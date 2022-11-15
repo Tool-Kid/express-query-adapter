@@ -1,5 +1,5 @@
-import { FilterFactory } from '../../../src/typeorm/filter/filter-factory'
-import { FieldFilter } from '../../../src/typeorm/filter/field/field-filter'
+import { FilterFactory } from '../../../../src/typeorm/filter/filter-factory'
+import { FieldFilter } from '../../../../src/typeorm/filter/field/field-filter'
 
 describe('Test FilterFactory #get', () => {
   const factory = new FilterFactory()

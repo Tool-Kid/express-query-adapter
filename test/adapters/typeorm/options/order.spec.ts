@@ -1,7 +1,7 @@
-import { ConfigProfile } from '../../../src/profile/config-profile'
-import { ENABLED_PROFILE } from '../../../src/profile/defaults'
-import { TypeORMQueryBuilder } from '../../../src/typeorm/query-builder'
-import { DEFAULT_PAGINATION } from '../../fixtures/default-pagination'
+import { ConfigProfile } from '../../../../src/profile/config-profile'
+import { ENABLED_PROFILE } from '../../../../src/profile/defaults'
+import { TypeORMQueryBuilder } from '../../../../src/typeorm/query-builder'
+import { DEFAULT_PAGINATION } from '../../../fixtures/default-pagination'
 
 describe('', () => {
   let qb: TypeORMQueryBuilder

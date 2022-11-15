@@ -10,8 +10,8 @@ import {
   In,
   Not,
 } from 'typeorm'
-import { FieldFilter } from '../../../src/typeorm/filter/field/field-filter'
-import { LookupFilter } from '../../../src/typeorm/filter/field/lookup.enum'
+import { FieldFilter } from '../../../../src/typeorm/filter/field/field-filter'
+import { LookupFilter } from '../../../../src/typeorm/filter/field/lookup.enum'
 
 describe('Test FieldFilter #buildQuery', () => {
   const built = {}
