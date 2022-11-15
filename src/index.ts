@@ -1,1 +1,1 @@
-export * from './query-builder'
+export * from './typeorm/query-builder'

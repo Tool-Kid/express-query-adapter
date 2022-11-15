@@ -1,4 +1,4 @@
-import { ExpressQuery } from '../express-query'
+import { ExpressQuery } from '../../express-query'
 import { LookupFilter } from './field/lookup.enum'
 
 export abstract class AbstractFilter {

@@ -1,6 +1,6 @@
-import { TypeORMQuery } from '../../typeorm-query'
-import { ExpressQuery } from '../../express-query'
-import { ConfigProfile } from '../../profile/config-profile'
+import { TypeORMQuery } from '../../../typeorm-query'
+import { ExpressQuery } from '../../../express-query'
+import { ConfigProfile } from '../../../profile/config-profile'
 
 export interface FilterOptionQuery {
   source: ExpressQuery

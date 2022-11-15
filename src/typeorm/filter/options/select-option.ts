@@ -1,4 +1,4 @@
-import { ConfigProfile } from '../../profile/config-profile'
+import { ConfigProfile } from '../../../profile/config-profile'
 import { FilterOption, FilterOptionQuery } from './filter-option'
 
 export class SelectOption implements FilterOption {

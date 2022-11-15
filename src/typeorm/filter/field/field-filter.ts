@@ -2,8 +2,8 @@ import { LookupBuilderFactory } from './lookup-builder-factory'
 import { Not } from 'typeorm'
 import { AbstractFilter } from '../filter'
 import { LookupFilter } from './lookup.enum'
-import { ExpressQuery } from '../../express-query'
-import { TypeORMQuery } from '../../typeorm-query'
+import { ExpressQuery } from '../../../express-query'
+import { TypeORMQuery } from '../../../typeorm-query'
 
 interface FilterConfig {
   query: ExpressQuery

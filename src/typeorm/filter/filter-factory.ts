@@ -1,7 +1,7 @@
 import { LookupDelimiter, LookupFilter } from './field/lookup.enum'
 import { FieldFilter } from './field/field-filter'
 import { AbstractFilter } from './filter'
-import { TypeORMQuery } from '../typeorm-query'
+import { TypeORMQuery } from '../../typeorm-query'
 
 interface FilterFactoryQuery {
   query: TypeORMQuery
