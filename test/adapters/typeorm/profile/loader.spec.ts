@@ -1,9 +1,9 @@
-import { ConfigProfile } from '../../../src/profile/config-profile'
+import { ConfigProfile } from '../../../../src/profile/config-profile'
 import {
   DISABLED_PROFILE,
   ENABLED_PROFILE,
-} from '../../../src/profile/defaults'
-import { ProfileLoader } from '../../../src/profile/loader'
+} from '../../../../src/profile/defaults'
+import { ProfileLoader } from '../../../../src/profile/loader'
 
 describe('Profile loader', () => {
   const loader = new ProfileLoader()

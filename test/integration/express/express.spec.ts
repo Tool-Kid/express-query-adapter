@@ -1,6 +1,6 @@
 import * as express from 'express'
 import * as request from 'supertest'
-import { QueryBuilder } from '../../../src/query-builder'
+import { TypeORMQueryBuilder } from '../../../src/typeorm/query-builder'
 import { Like } from 'typeorm'
 import { Server } from 'http'
 
@@ -12,18 +12,18 @@ describe('Test Express integration', () => {
     app.use(express.json())
     app.use(express.urlencoded({ extended: true }))
     app.get('/get', (req, res) => {
-      const queryBuilder = new QueryBuilder(req.query)
-      const built = queryBuilder.build()
+      const queryBuilder = new TypeORMQueryBuilder()
+      const built = queryBuilder.build(req.query)
       res.send(built)
     })
     app.post('/post_urlquery', (req, res) => {
-      const queryBuilder = new QueryBuilder(req.query)
-      const built = queryBuilder.build()
+      const queryBuilder = new TypeORMQueryBuilder()
+      const built = queryBuilder.build(req.query)
       res.send(built)
     })
     app.post('/post_body', (req, res) => {
-      const queryBuilder = new QueryBuilder(req.body)
-      const built = queryBuilder.build()
+      const queryBuilder = new TypeORMQueryBuilder()
+      const built = queryBuilder.build(req.body)
       res.send(built)
     })
     server = app.listen(3000, () => {
