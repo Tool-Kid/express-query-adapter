@@ -1,5 +1,5 @@
 import { ExpressQuery } from '../express-query'
-import { TypeORMQuery } from '../typeorm-query'
+import { TypeORMQuery } from './query'
 import { FilterFactory } from './filter/filter-factory'
 import { OptionsCollection } from './filter/options/container'
 import { ConfigProfile } from '../profile/config-profile'

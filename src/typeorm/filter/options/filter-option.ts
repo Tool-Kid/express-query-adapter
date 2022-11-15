@@ -1,4 +1,4 @@
-import { TypeORMQuery } from '../../../typeorm-query'
+import { TypeORMQuery } from '../../query'
 import { ExpressQuery } from '../../../express-query'
 import { ConfigProfile } from '../../../profile/config-profile'
 
