@@ -6,7 +6,7 @@ export class QueryBuilderFactory {
   private readonly profileFactory = new ProfileLoader()
   public build(
     strategy: Strategy,
-    profileType: ProfileType
+    profileType?: ProfileType
   ): TypeORMQueryBuilder {
     const profile = this.profileFactory.load(profileType)
     switch (strategy) {
