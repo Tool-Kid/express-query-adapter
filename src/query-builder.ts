@@ -1,7 +1,7 @@
 import { ConfigProfile, ProfileLoader } from './profile'
 import { ExpressQuery } from './express-query'
 
-export abstract class QueryBuilder<T> {
+export abstract class QueryBuilder<Query> {
   protected readonly profile: ConfigProfile
   private readonly profileLoader: ProfileLoader = new ProfileLoader()
 
@@ -9,5 +9,5 @@ export abstract class QueryBuilder<T> {
     this.profile = this.profileLoader.load(profile)
   }
 
-  abstract build(expressQuery: ExpressQuery): T
+  abstract build(expressQuery: ExpressQuery): Query
 }

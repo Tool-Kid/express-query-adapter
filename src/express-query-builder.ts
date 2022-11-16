@@ -1,27 +1,19 @@
-import { ExpressQuery } from './express-query'
 import { QueryBuilderFactory } from './factory'
-import { QueryBuilder } from './query-builder'
 import { ConfigProfile } from './profile'
+import { QueryBuilderReturnType } from './return-type'
 
-interface Config {
-  strategy: Strategy
+interface Config<Adapter> {
+  adapter: Adapter
   profile?: ProfileType
 }
 
 export type ProfileType = 'enabled' | 'disabled' | ConfigProfile
-export type Strategy = 'typeorm'
+export type QueryAdapter = 'typeorm'
 
-export class ExpressQueryBuilder {
-  private readonly config: Config
-  private readonly queryBuilder: QueryBuilder<unknown>
-
-  constructor(config: Config) {
-    this.config = config
-    const factory = new QueryBuilderFactory()
-    this.queryBuilder = factory.build(config.strategy, config.profile)
-  }
-
-  public build(expressQuery: ExpressQuery) {
-    return this.queryBuilder.build(expressQuery)
-  }
+export function getQueryBuilder<Adapter extends QueryAdapter>(
+  config: Config<Adapter>
+): QueryBuilderReturnType<Adapter> {
+  const factory = new QueryBuilderFactory()
+  const queryBuilder = factory.build(config.adapter, config.profile)
+  return queryBuilder
 }

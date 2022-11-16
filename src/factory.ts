@@ -1,19 +1,20 @@
 import { TypeORMQueryBuilder } from './typeorm/query-builder'
-import { ProfileType, Strategy } from './express-query-builder'
+import { ProfileType, QueryAdapter } from './express-query-builder'
 import { ProfileLoader } from './profile'
+import { QueryBuilderReturnType } from './return-type'
 
 export class QueryBuilderFactory {
   private readonly profileFactory = new ProfileLoader()
-  public build(
-    strategy: Strategy,
+  public build<Adapter extends QueryAdapter>(
+    adapter: Adapter,
     profileType?: ProfileType
-  ): TypeORMQueryBuilder {
+  ): QueryBuilderReturnType<Adapter> {
     const profile = this.profileFactory.load(profileType)
-    switch (strategy) {
+    switch (adapter) {
       case 'typeorm':
         return new TypeORMQueryBuilder(profile)
       default:
-        return new TypeORMQueryBuilder(profile)
+        throw new Error(`No adapter found for ${adapter}`)
     }
   }
 }
