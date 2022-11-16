@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="https://raw.githubusercontent.com/rjlopezdev/typeorm-express-query-builder/master/logo.png" alt="TypeORM Express Query Builder logo" width="250" height="187">
+  <img src="https://raw.githubusercontent.com/rjlopezdev/typeorm-express-query-builder/main/logo.png" alt="TypeORM Express Query Builder logo" width="250" height="187">
 </p>
 
 <h1 align="center"> TypeORM Express Query Builder </h1>
@@ -8,13 +8,13 @@
   Easily transform an Express req.query into TypeORM query
   <br>
   <br>
-  <img src="https://circleci.com/gh/rjlopezdev/typeorm-express-query-builder/tree/master.svg?style=svg">
+  <img src="https://circleci.com/gh/rjlopezdev/typeorm-express-query-builder/tree/main.svg?style=svg">
   <br>
   <br>
   <img src="https://img.shields.io/badge/maintainer-rjlopezdev-orange.svg?link=https://github.com/rjlopezdev">
   <br>
   <a href="https://codecov.io/gh/rjlopezdev/typeorm-express-query-builder">
-  <img src="https://codecov.io/gh/rjlopezdev/typeorm-express-query-builder/branch/master/graph/badge.svg" />
+  <img src="https://codecov.io/gh/rjlopezdev/typeorm-express-query-builder/branch/main/graph/badge.svg" />
   </a>
   <img src="https://badge.fury.io/js/typeorm-express-query-builder.svg">
   <img src="https://img.shields.io/badge/license-MIT-green.svg">
@@ -35,7 +35,7 @@ This library allows you to transfrom automatically Express.js _req.query_ into T
 
 # How it works?
 
-![](https://raw.githubusercontent.com/rjlopezdev/typeorm-express-query-builder/master/typeorm-express-pipeline.png)
+![](https://raw.githubusercontent.com/rjlopezdev/typeorm-express-query-builder/main/typeorm-express-pipeline.png)
 
 # Usage
 
