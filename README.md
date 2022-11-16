@@ -42,12 +42,12 @@ This library allows you to transfrom automatically Express.js _req.query_ into T
 Use QueryBuilder export from package and pass your `req.query` as an argument:
 
 ```typescript
-import QueryBuilder from 'typeorm-express-query-builder'
+import QueryBuilder from 'typeorm-express-query-builder';
 
-const builder = new QueryBuilder(req.query)
-const builtQuery = builder.build()
+const builder = new QueryBuilder(req.query);
+const builtQuery = builder.build();
 // Now your query is built, pass it to your TypeORM repository
-const results = await fooRepository.find(builtQuery)
+const results = await fooRepository.find(builtQuery);
 ```
 
 Given the following url query string:
@@ -78,9 +78,9 @@ It will be transformed into:
 
 ```javascript
 app.get('/foo', (req, res) => {
-  const queryBuilder = new QueryBuilder(req.query) // => Parsed into req.query
-  const built = queryBuilder.build()
-})
+  const queryBuilder = new QueryBuilder(req.query); // => Parsed into req.query
+  const built = queryBuilder.build();
+});
 ```
 
 ## POST method by body
@@ -97,9 +97,9 @@ POST foo/, body: {
 
 ```javascript
 app.post('/foo', (req, res) => {
-  const queryBuilder = new QueryBuilder(req.body) // => Parsed into req.body
-  const built = queryBuilder.build()
-})
+  const queryBuilder = new QueryBuilder(req.body); // => Parsed into req.body
+  const built = queryBuilder.build();
+});
 ```
 
 # Available Lookups
@@ -156,7 +156,7 @@ If you need to disable some capabilities, you can do using shortcuts to `enable|
 A Profile describe capabilities that can be used by clients & its behaviour.
 
 ```typescript
-const qb = new QueryBuilder(req.query, 'enabled' | 'disabled' | ConfigProgile)
+const qb = new QueryBuilder(req.query, 'enabled' | 'disabled' | ConfigProgile);
 ```
 
 ## ConfigProfile
@@ -182,7 +182,7 @@ const customProfile: ConfigProfile = {
     },
   },
   policy: 'skip',
-}
+};
 ```
 
 | Field   |  Default  | Behaviour                                                  | Type             |
