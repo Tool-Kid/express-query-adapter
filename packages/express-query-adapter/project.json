@@ -43,6 +43,13 @@
         "access": "public",
         "tag": "alpha"
       }
+    },
+    "version": {
+      "executor": "@jscutlery/semver:version",
+      "options": {
+        "preset": "conventional",
+        "preid": "alpha"
+      }
     }
   },
   "tags": []

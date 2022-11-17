@@ -2,13 +2,18 @@
   "name": "express-query-adapter",
   "version": "0.0.0",
   "license": "MIT",
-  "scripts": {},
+  "scripts": {
+    "prepare": "husky install"
+  },
   "private": true,
   "dependencies": {
     "@swc/helpers": "~0.4.11",
     "tslib": "^2.3.0"
   },
   "devDependencies": {
+    "@commitlint/cli": "^17.0.0",
+    "@commitlint/config-conventional": "^17.0.0",
+    "@jscutlery/semver": "^2.29.0",
     "@nrwl/cli": "15.1.1",
     "@nrwl/esbuild": "15.1.1",
     "@nrwl/eslint-plugin-nx": "15.1.1",
@@ -30,6 +35,7 @@
     "eslint": "~8.15.0",
     "eslint-config-prettier": "8.1.0",
     "express": "^4.17.1",
+    "husky": "^8.0.0",
     "jest": "28.1.1",
     "jest-environment-jsdom": "28.1.1",
     "ngx-deploy-npm": "^4.3.5",
