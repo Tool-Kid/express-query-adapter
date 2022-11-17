@@ -12,7 +12,7 @@ interface FilterFactoryQuery {
 export class FilterFactory {
   public get(query: FilterFactoryQuery): AbstractFilter {
     if (!this.isFieldFilter(query.key)) {
-      return;
+      throw new Error(`${query.key} is not a field`);
     }
     const prop = this.getProp(query);
     const hasNotOperator = this.hasNotOperator(query);

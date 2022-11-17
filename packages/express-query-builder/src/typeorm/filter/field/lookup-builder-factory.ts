@@ -39,6 +39,9 @@ export class LookupBuilderFactory {
 
   build(lookup: LookupFilter): LookupBuilder {
     const builder = this.lookups.get(lookup);
+    if (!builder) {
+      throw new Error(`Unsupported lookup ${lookup}`);
+    }
     return builder;
   }
 }

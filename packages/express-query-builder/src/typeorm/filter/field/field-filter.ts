@@ -20,7 +20,7 @@ export class FieldFilter extends AbstractFilter {
 
   constructor(config: FilterConfig) {
     super(config.query, config.prop, config.lookup, config.value);
-    this.notOperator = config.notOperator;
+    this.notOperator = config.notOperator || false;
   }
 
   public buildQuery(): void {

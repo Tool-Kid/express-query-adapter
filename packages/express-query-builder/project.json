@@ -11,7 +11,8 @@
         "outputPath": "dist/packages/express-query-builder",
         "main": "packages/express-query-builder/src/index.ts",
         "tsConfig": "packages/express-query-builder/tsconfig.lib.json",
-        "assets": ["packages/express-query-builder/*.md"]
+        "assets": ["packages/express-query-builder/*.md"],
+        "external": ["pg"]
       }
     },
     "publish": {
