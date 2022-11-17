@@ -3,6 +3,7 @@ on:
   push:
     branches:
       - main
+  pull_request:
 
 jobs:
   release:
@@ -15,21 +16,8 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: "16"
-      - name: Setup Git
-        run: |
-          git config user.name "GitHub Bot"
-          git config user.email "gituser@toolkid.com"
-      - run: npm install --frozen-lockfile
-      - name: Version
-        shell: bash
-        run: npx nx affected --base=last-release --target=version
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      - name: Tag last-release
-        shell: bash
-        run: |
-          git tag -f last-release
-          git push origin last-release --force
+      - run: npx nx affected --target=version
+
   publish:
     runs-on: ubuntu-latest
     steps:
@@ -44,8 +32,7 @@ jobs:
       - run: npx nx affected --target=lint --parallel=3
       - run: npx nx affected --target=test --parallel=3 --ci --code-coverage
       - run: npx nx affected --target=build --parallel=3
-
       - run: cp ./README.md ./dist/packages/express-query-adapter
-      - run: cd ./dist/packages/express-query-adapter && npm publish
+      - run: npx nx deploy express-query-adapter --dist-folder-path 'dist/packages/express-query-adapter'
         env:
           NODE_AUTH_TOKEN: ${{ secrets.DEPLOY_NPMJS }}
