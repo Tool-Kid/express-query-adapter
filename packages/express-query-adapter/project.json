@@ -12,7 +12,7 @@
         "main": "packages/express-query-adapter/src/index.ts",
         "tsConfig": "packages/express-query-adapter/tsconfig.lib.json",
         "assets": ["packages/express-query-adapter/*.md"],
-        "external": ["pg"]
+        "external": ["pg", "typeorm"]
       }
     },
     "publish": {

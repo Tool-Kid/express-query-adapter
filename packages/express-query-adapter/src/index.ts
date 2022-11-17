@@ -1,1 +1,1 @@
-export * from './typeorm/query-builder';
+export * from './express-query-adapter';
