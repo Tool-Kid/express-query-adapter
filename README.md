@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="https://raw.githubusercontent.com/rjlopezdev/typeorm-express-query-builder/master/logo.png" alt="TypeORM Express Query Builder logo" width="250" height="187">
+  <img src="https://raw.githubusercontent.com/rjlopezdev/typeorm-express-query-adapter/main/logo.png" alt="TypeORM Express Query Builder logo" width="250" height="187">
 </p>
 
 <h1 align="center"> TypeORM Express Query Builder </h1>
@@ -8,15 +8,15 @@
   Easily transform an Express req.query into TypeORM query
   <br>
   <br>
-  <img src="https://circleci.com/gh/rjlopezdev/typeorm-express-query-builder/tree/master.svg?style=svg">
+  <img src="https://circleci.com/gh/rjlopezdev/typeorm-express-query-adapter/tree/main.svg?style=svg">
   <br>
   <br>
   <img src="https://img.shields.io/badge/maintainer-rjlopezdev-orange.svg?link=https://github.com/rjlopezdev">
   <br>
-  <a href="https://codecov.io/gh/rjlopezdev/typeorm-express-query-builder">
-  <img src="https://codecov.io/gh/rjlopezdev/typeorm-express-query-builder/branch/master/graph/badge.svg" />
+  <a href="https://codecov.io/gh/rjlopezdev/typeorm-express-query-adapter">
+  <img src="https://codecov.io/gh/rjlopezdev/typeorm-express-query-adapter/branch/main/graph/badge.svg" />
   </a>
-  <img src="https://badge.fury.io/js/typeorm-express-query-builder.svg">
+  <img src="https://badge.fury.io/js/typeorm-express-query-adapter.svg">
   <img src="https://img.shields.io/badge/license-MIT-green.svg">
   <br>
   <br>
@@ -31,23 +31,23 @@ This library allows you to transfrom automatically Express.js _req.query_ into T
 
 ## Installation
 
-`npm install typeorm-express-query-builder`
+`npm install typeorm-express-query-adapter`
 
 # How it works?
 
-![](https://raw.githubusercontent.com/rjlopezdev/typeorm-express-query-builder/master/typeorm-express-pipeline.png)
+![](https://raw.githubusercontent.com/rjlopezdev/typeorm-express-query-adapter/main/typeorm-express-pipeline.png)
 
 # Usage
 
 Use QueryBuilder export from package and pass your `req.query` as an argument:
 
 ```typescript
-import QueryBuilder from 'typeorm-express-query-builder'
+import QueryBuilder from 'typeorm-express-query-adapter';
 
-const builder = new QueryBuilder(req.query)
-const builtQuery = builder.build()
+const builder = new QueryBuilder(req.query);
+const builtQuery = builder.build();
 // Now your query is built, pass it to your TypeORM repository
-const results = await fooRepository.find(builtQuery)
+const results = await fooRepository.find(builtQuery);
 ```
 
 Given the following url query string:
@@ -78,9 +78,9 @@ It will be transformed into:
 
 ```javascript
 app.get('/foo', (req, res) => {
-  const queryBuilder = new QueryBuilder(req.query) // => Parsed into req.query
-  const built = queryBuilder.build()
-})
+  const queryBuilder = new QueryBuilder(req.query); // => Parsed into req.query
+  const built = queryBuilder.build();
+});
 ```
 
 ## POST method by body
@@ -97,9 +97,9 @@ POST foo/, body: {
 
 ```javascript
 app.post('/foo', (req, res) => {
-  const queryBuilder = new QueryBuilder(req.body) // => Parsed into req.body
-  const built = queryBuilder.build()
-})
+  const queryBuilder = new QueryBuilder(req.body); // => Parsed into req.body
+  const built = queryBuilder.build();
+});
 ```
 
 # Available Lookups
@@ -156,7 +156,7 @@ If you need to disable some capabilities, you can do using shortcuts to `enable|
 A Profile describe capabilities that can be used by clients & its behaviour.
 
 ```typescript
-const qb = new QueryBuilder(req.query, 'enabled' | 'disabled' | ConfigProgile)
+const qb = new QueryBuilder(req.query, 'enabled' | 'disabled' | ConfigProgile);
 ```
 
 ## ConfigProfile
@@ -182,7 +182,7 @@ const customProfile: ConfigProfile = {
     },
   },
   policy: 'skip',
-}
+};
 ```
 
 | Field   |  Default  | Behaviour                                                  | Type             |
