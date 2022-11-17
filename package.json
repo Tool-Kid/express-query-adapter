@@ -1,5 +1,5 @@
 {
-  "name": "express-query-builder",
+  "name": "express-query-adapter",
   "version": "0.0.0",
   "license": "MIT",
   "scripts": {},
@@ -32,6 +32,7 @@
     "express": "^4.17.1",
     "jest": "28.1.1",
     "jest-environment-jsdom": "28.1.1",
+    "ngx-deploy-npm": "^4.3.5",
     "nx": "15.1.1",
     "prettier": "^2.6.2",
     "supertest": "^6.1.6",

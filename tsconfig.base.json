@@ -15,7 +15,7 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
-      "express-query-builder": ["packages/express-query-builder/src/index.ts"]
+      "express-query-adapter": ["packages/express-query-adapter/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]

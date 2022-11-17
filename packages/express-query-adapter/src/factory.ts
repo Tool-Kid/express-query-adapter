@@ -1,5 +1,5 @@
 import { TypeORMQueryBuilder } from './typeorm/query-builder';
-import { ProfileType, QueryAdapter } from './express-query-builder';
+import { ProfileType, QueryAdapter } from './express-query-adapter';
 import { ProfileLoader } from './profile';
 import { QueryBuilderReturnType } from './return-type';
 

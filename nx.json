@@ -1,6 +1,6 @@
 {
   "$schema": "./node_modules/nx/schemas/nx-schema.json",
-  "npmScope": "express-query-builder",
+  "npmScope": "express-query-adapter",
   "tasksRunnerOptions": {
     "default": {
       "runner": "nx/tasks-runners/default",

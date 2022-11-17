@@ -10,7 +10,7 @@ interface Config<Adapter> {
 export type ProfileType = 'enabled' | 'disabled' | ConfigProfile;
 export type QueryAdapter = 'typeorm';
 
-export function getQueryBuilder<Adapter extends QueryAdapter>(
+export function getQueryAdapter<Adapter extends QueryAdapter>(
   config: Config<Adapter>
 ): QueryBuilderReturnType<Adapter> {
   const factory = new QueryBuilderFactory();
