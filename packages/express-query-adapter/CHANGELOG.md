@@ -2,6 +2,13 @@
 
 This file was generated using [@jscutlery/semver](https://github.com/jscutlery/semver).
 
+### 0.0.1 (2022-11-17)
+
+
+### Features
+
+* CI/CD ([#409](https://github.com/Tool-Kid/typeorm-express-query-builder/issues/409)) ([5ca9cc1](https://github.com/Tool-Kid/typeorm-express-query-builder/commit/5ca9cc15ce5058d807895218a87f45103f0e5362)), closes [#403](https://github.com/Tool-Kid/typeorm-express-query-builder/issues/403) [#408](https://github.com/Tool-Kid/typeorm-express-query-builder/issues/408)
+
 ## 0.1.0 (2022-11-17)
 
 ### Features
