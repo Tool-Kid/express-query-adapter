@@ -1,22 +1,22 @@
 <p align="center">
-  <img src="https://raw.githubusercontent.com/rjlopezdev/typeorm-express-query-adapter/main/logo.png" alt="TypeORM Express Query Builder logo" width="250" height="187">
+  <img src="https://raw.githubusercontent.com/Tool-Kid/express-query-adapter/main/logo.png" alt="Express Query Adapter logo" width="250" height="187">
 </p>
 
-<h1 align="center"> TypeORM Express Query Builder </h1>
+<h1 align="center"> Express Query Adapter </h1>
 
 <p align="center">
   Easily transform an Express req.query into TypeORM query
   <br>
   <br>
-  <img src="https://circleci.com/gh/rjlopezdev/typeorm-express-query-adapter/tree/main.svg?style=svg">
+  <img src="https://circleci.com/gh/rjlopezdev/express-query-adapter/tree/main.svg?style=svg">
   <br>
   <br>
   <img src="https://img.shields.io/badge/maintainer-rjlopezdev-orange.svg?link=https://github.com/rjlopezdev">
   <br>
-  <a href="https://codecov.io/gh/rjlopezdev/typeorm-express-query-adapter">
-  <img src="https://codecov.io/gh/rjlopezdev/typeorm-express-query-adapter/branch/main/graph/badge.svg" />
+  <a href="https://codecov.io/gh/rjlopezdev/express-query-adapter">
+  <img src="https://codecov.io/gh/rjlopezdev/express-query-adapter/branch/main/graph/badge.svg" />
   </a>
-  <img src="https://badge.fury.io/js/typeorm-express-query-adapter.svg">
+  <img src="https://badge.fury.io/js/express-query-adapter.svg">
   <img src="https://img.shields.io/badge/license-MIT-green.svg">
   <br>
   <br>
@@ -31,18 +31,18 @@ This library allows you to transfrom automatically Express.js _req.query_ into T
 
 ## Installation
 
-`npm install typeorm-express-query-adapter`
+`npm install express-query-adapter`
 
 # How it works?
 
-![](https://raw.githubusercontent.com/rjlopezdev/typeorm-express-query-adapter/main/typeorm-express-pipeline.png)
+![](https://raw.githubusercontent.com/rjlopezdev/express-query-adapter/main/express-pipeline.png)
 
 # Usage
 
 Use QueryBuilder export from package and pass your `req.query` as an argument:
 
 ```typescript
-import QueryBuilder from 'typeorm-express-query-adapter';
+import QueryBuilder from 'express-query-adapter';
 
 const builder = new QueryBuilder(req.query);
 const builtQuery = builder.build();
