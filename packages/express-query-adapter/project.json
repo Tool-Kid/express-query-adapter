@@ -11,16 +11,9 @@
         "outputPath": "dist/packages/express-query-adapter",
         "main": "packages/express-query-adapter/src/index.ts",
         "tsConfig": "packages/express-query-adapter/tsconfig.lib.json",
-        "assets": ["packages/express-query-adapter/*.md"],
+        "assets": ["README.md"],
         "external": ["pg", "typeorm"]
       }
-    },
-    "publish": {
-      "executor": "nx:run-commands",
-      "options": {
-        "command": "node tools/scripts/publish.mjs express-query-adapter {args.ver} {args.tag}"
-      },
-      "dependsOn": ["build"]
     },
     "lint": {
       "executor": "@nrwl/linter:eslint",
@@ -44,9 +37,17 @@
         "tag": "alpha"
       }
     },
+    "github": {
+      "executor": "@jscutlery/semver:github",
+      "options": {
+        "tag": "${tag}",
+        "notes": "${notes}"
+      }
+    },
     "version": {
       "executor": "@jscutlery/semver:version",
       "options": {
+        "postTargets": ["express-query-adapter:github"],
         "preset": "conventional",
         "preid": "alpha"
       }

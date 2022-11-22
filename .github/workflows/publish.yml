@@ -5,31 +5,6 @@ on:
       - main
 
 jobs:
-  release:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v3
-        with:
-          fetch-depth: 0
-      - name: Use Node.js
-        uses: actions/setup-node@v3
-        with:
-          node-version: "16"
-      - name: Setup Git
-        run: |
-          git config user.name "GitHub Bot"
-          git config user.email "gituser@toolkid.com"
-      - run: npm install --frozen-lockfile
-      - name: Version
-        shell: bash
-        run: npx nx affected --base=last-release --target=version
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      - name: Tag last-release
-        shell: bash
-        run: |
-          git tag -f last-release
-          git push origin last-release --force
   publish:
     runs-on: ubuntu-latest
     steps:
@@ -38,14 +13,16 @@ jobs:
           fetch-depth: 0
       - uses: nrwl/nx-set-shas@v3
       - run: npm ci
+      - name: Auth npm
+        run: |
+          echo '//registry.npmjs.org/:_authToken=${NODE_AUTH_TOKEN}' > .npmrc
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.DEPLOY_NPMJS }}
 
       - run: npx nx workspace-lint
-      - run: npx nx format:check
       - run: npx nx affected --target=lint --parallel=3
       - run: npx nx affected --target=test --parallel=3 --ci --code-coverage
       - run: npx nx affected --target=build --parallel=3
-
-      - run: cp ./README.md ./dist/packages/express-query-adapter
-      - run: cd ./dist/packages/express-query-adapter && npm publish
+      - run: npx nx deploy express-query-adapter
         env:
           NODE_AUTH_TOKEN: ${{ secrets.DEPLOY_NPMJS }}
