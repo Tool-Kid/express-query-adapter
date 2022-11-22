@@ -1,5 +1,5 @@
 {
-  "name": "express-query-adapter",
+  "name": "@tool-kid/express-query-adapter",
   "version": "0.0.1",
   "type": "commonjs"
 }
