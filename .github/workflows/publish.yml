@@ -29,6 +29,11 @@ jobs:
           fetch-depth: 0
       - uses: nrwl/nx-set-shas@v3
       - run: npm ci
+      - name: Auth npm
+        run: |
+          echo '//registry.npmjs.org/:_authToken=${DEPLOY_NPMJS}' > .npmrc
+        env:
+          DEPLOY_NPMJS: ${{ secrets.DEPLOY_NPMJS }}
 
       - run: npx nx workspace-lint
       - run: npx nx affected --target=lint --parallel=3
