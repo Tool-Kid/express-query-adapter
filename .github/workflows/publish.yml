@@ -13,6 +13,10 @@ jobs:
         with:
           fetch-depth: 0
       - uses: nrwl/nx-set-shas@v3
+      - name: Setup Git
+        run: |
+          git config user.name "GitHub Bot"
+          git config user.email "tool-kid@github.com"
       - run: npm ci
       - run: npx nx affected --target=version
         env:
@@ -27,7 +31,6 @@ jobs:
       - run: npm ci
 
       - run: npx nx workspace-lint
-      - run: npx nx format:check
       - run: npx nx affected --target=lint --parallel=3
       - run: npx nx affected --target=test --parallel=3 --ci --code-coverage
       - run: npx nx affected --target=build --parallel=3
