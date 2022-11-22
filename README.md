@@ -5,7 +5,7 @@
 <h1 align="center"> Express Query Adapter </h1>
 
 <p align="center">
-  Easily transform an Express req.query into TypeORM query
+  Easily transform an Express req.query into your favourite query tool
   <br>
   <br>
   <img src="https://circleci.com/gh/rjlopezdev/express-query-adapter/tree/main.svg?style=svg">
@@ -16,7 +16,7 @@
   <a href="https://codecov.io/gh/rjlopezdev/express-query-adapter">
   <img src="https://codecov.io/gh/rjlopezdev/express-query-adapter/branch/main/graph/badge.svg" />
   </a>
-  <img src="https://badge.fury.io/js/express-query-adapter.svg">
+  <img src="https://badge.fury.io/js/@tool-kid%2Fexpress-query-adapter.svg">
   <img src="https://img.shields.io/badge/license-MIT-green.svg">
   <br>
   <br>
@@ -25,30 +25,30 @@
   <a href="LICENSE"> License </a>
 </p>
 
-# Purpose
+# Installation
 
-This library allows you to transfrom automatically Express.js _req.query_ into TypeORM findOptions queries.
-
-## Installation
-
-`npm install express-query-adapter`
+`npm install @tool-kid/express-query-adapter`
 
 # How it works?
 
-![](https://raw.githubusercontent.com/rjlopezdev/express-query-adapter/main/express-pipeline.png)
+![](https://raw.githubusercontent.com/Tool-Kid/express-query-adapter/main/express-adapter-pipeline.png)
 
 # Usage
 
-Use QueryBuilder export from package and pass your `req.query` as an argument:
+Use `getQueryBuilder` exported from package and pass your `req.query` as an argument:
 
 ```typescript
-import QueryBuilder from 'express-query-adapter';
+import { getQueryBuilder } from '@tool-kid/express-query-adapter';
 
-const builder = new QueryBuilder(req.query);
-const builtQuery = builder.build();
-// Now your query is built, pass it to your TypeORM repository
+const builder = getQueryBuilder({ adapter: 'typeorm' });
+const builtQuery = builder.build(req.query);
+// Now your query is built, pass it to your favourite tool
 const results = await fooRepository.find(builtQuery);
 ```
+
+# Adapters
+- [TypeORM](#typeorm)
+## TypeORM
 
 Given the following url query string:
 
@@ -68,9 +68,9 @@ It will be transformed into:
 }
 ```
 
-# Different ways of retrieve data
+## Different ways of retrieve data
 
-## GET, POST method by url query string
+### GET, POST method by url query string
 
 `GET foo/?name__contains=foo&role__in=admin,common&age__gte=18&page=3&limit=10`
 
@@ -83,7 +83,7 @@ app.get('/foo', (req, res) => {
 });
 ```
 
-## POST method by body
+### POST method by body
 
 ```javascript
 POST foo/, body: {
@@ -102,7 +102,7 @@ app.post('/foo', (req, res) => {
 });
 ```
 
-# Available Lookups
+## Available Lookups
 
 | Lookup          | Behaviour                                                   | Example                |
 | --------------- | ----------------------------------------------------------- | ---------------------- |
@@ -126,9 +126,9 @@ app.post('/foo', (req, res) => {
 _Example:_
 `foo__not__contains=value`
 
-# Options
+## Options
 
-## Pagination
+### Pagination
 
 | Option     | Default  | Behaviour                                                   | Example            |
 | ---------- | :------: | ----------------------------------------------------------- | ------------------ |
@@ -136,13 +136,13 @@ _Example:_
 | page       |  **1**   | Return entries for page `page`                              | `page=2`           |
 | limit      |  **25**  | Return entries for page `page` paginated by size `limit`    | `limit=15`         |
 
-## Ordering
+### Ordering
 
 | Option | Default | Behaviour                                                | Example                     |
 | ------ | :-----: | -------------------------------------------------------- | --------------------------- |
 | order  |    -    | Order for fields:<br>`+`: Ascendant <br> `-`: Descendant | `order=+foo,-name,+surname` |
 
-## Selection
+### Selection
 
 | Option | Default | Behaviour                                                           | Example                          |
 | ------ | :-----: | ------------------------------------------------------------------- | -------------------------------- |
@@ -156,7 +156,8 @@ If you need to disable some capabilities, you can do using shortcuts to `enable|
 A Profile describe capabilities that can be used by clients & its behaviour.
 
 ```typescript
-const qb = new QueryBuilder(req.query, 'enabled' | 'disabled' | ConfigProgile);
+const qb = getQueryBuilder({ adapter: 'typeorm', profile: 'enabled' | 'disabled' | ConfigProgile });
+const builtQuery = builder.build(req.query);
 ```
 
 ## ConfigProfile
