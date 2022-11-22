@@ -19,7 +19,6 @@ jobs:
           echo '//registry.npmjs.org/:_authToken=${NODE_AUTH_TOKEN}' > .npmrc
         env:
           NODE_AUTH_TOKEN: ${{ secrets.DEPLOY_NPMJS }}
-      - run: npm whoami
 
       - run: npx nx workspace-lint
       - run: npx nx affected --target=lint --parallel=3
