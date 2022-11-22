@@ -16,9 +16,9 @@ jobs:
       - run: npm ci
       - name: Auth npm
         run: |
-          echo '//registry.npmjs.org/:_authToken=${DEPLOY_NPMJS}' > .npmrc
+          echo '//registry.npmjs.org/:_authToken=${NODE_AUTH_TOKEN}' > .npmrc
         env:
-          DEPLOY_NPMJS: ${{ secrets.DEPLOY_NPMJS }}
+          NODE_AUTH_TOKEN: ${{ secrets.DEPLOY_NPMJS }}
       - run: npm whoami
 
       - run: npx nx workspace-lint
