@@ -49,8 +49,7 @@
       "options": {
         "postTargets": ["express-query-adapter:github"],
         "preset": "conventional",
-        "preid": "alpha",
-        "push": true
+        "preid": "alpha"
       }
     }
   },

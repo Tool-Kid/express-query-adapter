@@ -24,7 +24,6 @@ jobs:
       - run: npx nx affected --target=lint --parallel=3
       - run: npx nx affected --target=test --parallel=3 --ci --code-coverage
       - run: npx nx affected --target=build --parallel=3
-      - run: cp ./README.md ./dist/packages/express-query-adapter
-      - run: npx nx deploy express-query-adapter --dist-folder-path 'dist/packages/express-query-adapter'
+      - run: npx nx deploy express-query-adapter
         env:
           NODE_AUTH_TOKEN: ${{ secrets.DEPLOY_NPMJS }}
