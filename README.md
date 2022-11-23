@@ -40,7 +40,7 @@ Use `getQueryBuilder` exported from package and pass your `req.query` as an argu
 ```typescript
 import { getQueryBuilder } from '@tool-kid/express-query-adapter';
 
-const builder = getQueryBuilder({ adapter: 'typeorm' });
+const builder = await getQueryBuilder({ adapter: 'typeorm' });
 const builtQuery = builder.build(req.query);
 // Now your query is built, pass it to your favourite tool
 const results = await fooRepository.find(builtQuery);
@@ -78,8 +78,8 @@ It will be transformed into:
 
 ```javascript
 app.get('/foo', (req, res) => {
-  const queryBuilder = new QueryBuilder(req.query); // => Parsed into req.query
-  const built = queryBuilder.build();
+  const qb = await getQueryBuilder({ adapter: 'typeorm' });
+  const built = qb.build(req.query); // => Parsed into req.query
 });
 ```
 
@@ -97,8 +97,8 @@ POST foo/, body: {
 
 ```javascript
 app.post('/foo', (req, res) => {
-  const queryBuilder = new QueryBuilder(req.body); // => Parsed into req.body
-  const built = queryBuilder.build();
+  const qb = await getQueryBuilder({ adapter: 'typeorm' });
+  const built = qb.build(req.query); // => Parsed into req.body
 });
 ```
 
