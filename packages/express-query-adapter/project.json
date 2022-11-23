@@ -45,10 +45,7 @@
     "version": {
       "executor": "@jscutlery/semver:version",
       "options": {
-        "postTargets": [
-          "express-query-adapter:github",
-          "express-query-adapter:deploy"
-        ],
+        "postTargets": ["express-query-adapter:github"],
         "preset": "conventional"
       }
     }
