@@ -39,7 +39,7 @@
     "github": {
       "executor": "@jscutlery/semver:github",
       "options": {
-        "tag": "${tag}",
+        "tag": "@tool-kid/${tag}",
         "notes": "${notes}"
       }
     },
