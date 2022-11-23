@@ -14,7 +14,7 @@ import { FieldFilter } from '../../../../src/typeorm/filter/field/field-filter';
 import { LookupFilter } from '../../../../src/typeorm/filter/field/lookup.enum';
 
 describe('Test FieldFilter #buildQuery', () => {
-  const built = {};
+  const built: any = {};
 
   it('should return an <exact> filter', () => {
     const fieldFilter = new FieldFilter({
