@@ -32,8 +32,7 @@
     "deploy": {
       "executor": "ngx-deploy-npm:deploy",
       "options": {
-        "access": "public",
-        "tag": "alpha"
+        "access": "public"
       }
     },
     "github": {
@@ -46,7 +45,10 @@
     "version": {
       "executor": "@jscutlery/semver:version",
       "options": {
-        "postTargets": ["express-query-adapter:github"],
+        "postTargets": [
+          "express-query-adapter:github",
+          "express-query-adapter:deploy"
+        ],
         "preset": "conventional"
       }
     }
