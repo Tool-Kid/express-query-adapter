@@ -2,6 +2,8 @@
 
 This file was generated using [@jscutlery/semver](https://github.com/jscutlery/semver).
 
+### [0.1.1](https://github.com/Tool-Kid/express-query-adapter/compare/express-query-adapter-0.1.0...express-query-adapter-0.1.1) (2022-11-23)
+
 ## 0.1.0 (2022-11-23)
 
 
