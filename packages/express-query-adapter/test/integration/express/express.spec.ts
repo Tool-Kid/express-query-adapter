@@ -1,6 +1,7 @@
 import * as express from 'express';
 import * as request from 'supertest';
 import { TypeORMQueryBuilder } from '../../../src/typeorm/query-builder';
+import { DEFAULT_PAGINATION } from '../../fixtures/default-pagination';
 import { Like } from 'typeorm';
 import { Server } from 'http';
 
@@ -45,8 +46,7 @@ describe('Test Express integration', () => {
             name: 'rjlopezdev',
             email: Like('%@gmail.com%'),
           },
-          skip: 0,
-          take: 25,
+          ...DEFAULT_PAGINATION,
         });
         done();
       });
@@ -62,8 +62,7 @@ describe('Test Express integration', () => {
             name: 'rjlopezdev',
             email: Like('%@gmail.com%'),
           },
-          skip: 0,
-          take: 25,
+          ...DEFAULT_PAGINATION,
         });
         done();
       });
@@ -83,8 +82,7 @@ describe('Test Express integration', () => {
             name: 'rjlopezdev',
             email: Like('%@gmail.com%'),
           },
-          skip: 0,
-          take: 25,
+          ...DEFAULT_PAGINATION,
         });
         done();
       });

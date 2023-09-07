@@ -5,10 +5,10 @@ import { QueryBuilderReturnType } from './return-type';
 
 export class QueryBuilderFactory {
   private readonly profileFactory = new ProfileLoader();
-  public async build<Adapter extends QueryAdapter>(
-    adapter: Adapter,
+  public async build(
+    adapter: QueryAdapter,
     profileType?: ProfileType
-  ): Promise<QueryBuilderReturnType<Adapter>> {
+  ): Promise<QueryBuilderReturnType<QueryAdapter>> {
     const profile = this.profileFactory.load(profileType);
     switch (adapter) {
       case 'typeorm':

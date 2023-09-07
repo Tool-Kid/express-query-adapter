@@ -1,3 +1,4 @@
+import { DEFAULT_PAGINATION } from '../../../../test/fixtures/default-pagination';
 import { ConfigProfile } from '../../../../src/profile/config-profile';
 import { ENABLED_PROFILE } from '../../../../src/profile/defaults';
 import { TypeORMQueryBuilder } from '../../../../src/typeorm/query-builder';
@@ -12,27 +13,18 @@ describe('Test Profiles for <pagination>', () => {
   it('should paginate with default "itemsPerPage" when <options.pagination.status> equals to "enabled"', () => {
     profile.options.pagination.status = 'enabled';
     qb = new TypeORMQueryBuilder(profile);
-    expect(qb.build({})).toEqual({
-      skip: 0,
-      take: 25,
-    });
+    expect(qb.build({})).toEqual(DEFAULT_PAGINATION);
   });
 
   it('should paginate with default "itemsPerPage" when <options.pagination.status> equals to "enabled" and "paginate" equals to true', () => {
     profile.options.pagination.status = 'enabled';
     qb = new TypeORMQueryBuilder(profile);
-    expect(qb.build({ pagination: true })).toEqual({
-      skip: 0,
-      take: 25,
-    });
+    expect(qb.build({ pagination: true })).toEqual(DEFAULT_PAGINATION);
   });
   it('should paginate with default "itemsPerPage" when <options.pagination.status> equals to "enabled" and "paginate" equals to undefined', () => {
     profile.options.pagination.status = 'enabled';
     qb = new TypeORMQueryBuilder(profile);
-    expect(qb.build({ pagination: undefined })).toEqual({
-      skip: 0,
-      take: 25,
-    });
+    expect(qb.build({ pagination: undefined })).toEqual(DEFAULT_PAGINATION);
   });
   it('should not paginate when <options.pagination.status> equals to "disabled"', () => {
     profile.options.pagination.status = 'disabled';
