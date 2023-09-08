@@ -16,29 +16,39 @@ import {
   LowerThanOrEqualLookup,
   StartsWithLookup,
 } from './lookups';
+import { QueryDialect } from '../../../types';
 
-const LOOKUP_FILTER_MAP: Map<LookupFilter, LookupBuilder> = new Map([
-  [LookupFilter.EXACT, new ExactLookup()],
-  [LookupFilter.CONTAINS, new ContainsLookup()],
-  [LookupFilter.STARTS_WITH, new StartsWithLookup()],
-  [LookupFilter.ENDS_WITH, new EndsWithLookup()],
-  [LookupFilter.ICONTAINS, new InsensitiveContainsLookup()],
-  [LookupFilter.ISTARTS_WITH, new InsensitiveStartsWithLookup()],
-  [LookupFilter.IENDS_WITH, new InsensitiveEndsWithLookup()],
-  [LookupFilter.IS_NULL, new IsNullLookup()],
-  [LookupFilter.LT, new LowerThanLookup()],
-  [LookupFilter.LTE, new LowerThanOrEqualLookup()],
-  [LookupFilter.GT, new GreaterThanLookup()],
-  [LookupFilter.GTE, new GreaterThanOrEqualLookup()],
-  [LookupFilter.IN, new InLookup()],
-  [LookupFilter.BETWEEN, new BetweenLookup()],
-]);
+const LOOKUP_FILTER_MAP_FACTORY = (config: {
+  dialect?: QueryDialect;
+}): Map<LookupFilter, LookupBuilder> =>
+  new Map([
+    [LookupFilter.EXACT, new ExactLookup(config)],
+    [LookupFilter.CONTAINS, new ContainsLookup(config)],
+    [LookupFilter.STARTS_WITH, new StartsWithLookup(config)],
+    [LookupFilter.ENDS_WITH, new EndsWithLookup(config)],
+    [LookupFilter.ICONTAINS, new InsensitiveContainsLookup(config)],
+    [LookupFilter.ISTARTS_WITH, new InsensitiveStartsWithLookup(config)],
+    [LookupFilter.IENDS_WITH, new InsensitiveEndsWithLookup(config)],
+    [LookupFilter.IS_NULL, new IsNullLookup(config)],
+    [LookupFilter.LT, new LowerThanLookup(config)],
+    [LookupFilter.LTE, new LowerThanOrEqualLookup(config)],
+    [LookupFilter.GT, new GreaterThanLookup(config)],
+    [LookupFilter.GTE, new GreaterThanOrEqualLookup(config)],
+    [LookupFilter.IN, new InLookup(config)],
+    [LookupFilter.BETWEEN, new BetweenLookup(config)],
+  ]);
 
 export class LookupBuilderFactory {
-  private readonly lookups = LOOKUP_FILTER_MAP;
+  private readonly getLookupMap = LOOKUP_FILTER_MAP_FACTORY;
 
-  build(lookup: LookupFilter): LookupBuilder {
-    const builder = this.lookups.get(lookup);
+  build({
+    lookup,
+    dialect,
+  }: {
+    lookup: LookupFilter;
+    dialect?: QueryDialect;
+  }): LookupBuilder {
+    const builder = this.getLookupMap({ dialect }).get(lookup);
     if (!builder) {
       throw new Error(`Unsupported lookup ${lookup}`);
     }

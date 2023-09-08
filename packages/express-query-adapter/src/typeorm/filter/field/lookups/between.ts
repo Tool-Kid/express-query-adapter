@@ -1,7 +1,7 @@
 import { Between, FindOptionsUtils } from 'typeorm';
 import { LookupBuilder } from '../lookup';
 
-export class BetweenLookup implements LookupBuilder {
+export class BetweenLookup extends LookupBuilder {
   build(prop: string, value: string): Record<string, FindOptionsUtils> {
     const rangeValues = value.split(',');
     const isoDateRegex =

@@ -12,7 +12,7 @@ describe('', () => {
   });
   it('should attach "order" criteria when <options.ordering.status> equals to "enabled"', () => {
     profile.options.ordering.status = 'enabled';
-    qb = new TypeORMQueryBuilder(profile);
+    qb = new TypeORMQueryBuilder({ profile });
     expect(qb.build({ order: '+field1,-field2' })).toEqual({
       ...DEFAULT_PAGINATION,
       order: {
@@ -23,14 +23,14 @@ describe('', () => {
   });
   it('should not attach "order" criteria when <options.ordering.status> equals to "disabled"', () => {
     profile.options.ordering.status = 'disabled';
-    qb = new TypeORMQueryBuilder(profile);
+    qb = new TypeORMQueryBuilder({ profile });
     expect(qb.build({ order: '+field1,-field2' })).toEqual({
       ...DEFAULT_PAGINATION,
     });
   });
   it('should not attach fields when <options.ordering.status> equals to "enabled" and "select" key equals to undefined', () => {
     profile.options.ordering.status = 'enabled';
-    qb = new TypeORMQueryBuilder(profile);
+    qb = new TypeORMQueryBuilder({ profile });
     expect(qb.build({})).toEqual({
       ...DEFAULT_PAGINATION,
     });

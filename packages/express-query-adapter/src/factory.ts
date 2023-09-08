@@ -1,22 +1,33 @@
-/* eslint-disable no-case-declarations */
-import { ProfileType, QueryAdapter } from './express-query-adapter';
-import { ProfileLoader } from './profile';
-import { QueryBuilderReturnType } from './return-type';
+import {
+  QueryAdapter,
+  QueryDialect,
+  ProfileType,
+  QueryBuilderReturnType,
+} from './types';
+
+interface QueryBuilderConfig {
+  adapter: QueryAdapter;
+  dialect?: QueryDialect;
+  profile?: ProfileType;
+}
 
 export class QueryBuilderFactory {
-  private readonly profileFactory = new ProfileLoader();
   public async build(
-    adapter: QueryAdapter,
-    profileType?: ProfileType
+    config: QueryBuilderConfig
   ): Promise<QueryBuilderReturnType<QueryAdapter>> {
-    const profile = this.profileFactory.load(profileType);
-    switch (adapter) {
-      case 'typeorm':
-        const qb = (await import('./typeorm/query-builder'))
-          .TypeORMQueryBuilder;
-        return new qb(profile);
+    switch (config.adapter) {
+      case QueryAdapter.TYPEORM:
+        return import('./typeorm/query-builder')
+          .then((m) => m.TypeORMQueryBuilder)
+          .then(
+            (qb) =>
+              new qb({
+                dialect: config.dialect,
+                profile: config.profile,
+              })
+          );
       default:
-        throw new Error(`No adapter found for ${adapter}`);
+        throw new Error(`No adapter found for ${config.adapter}`);
     }
   }
 }

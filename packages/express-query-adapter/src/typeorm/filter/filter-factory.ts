@@ -2,9 +2,11 @@ import { LookupDelimiter, LookupFilter } from './field/lookup.enum';
 import { FieldFilter } from './field/field-filter';
 import { AbstractFilter } from './filter';
 import { TypeORMQuery } from '../query';
+import { QueryDialect } from '../../types';
 
 interface FilterFactoryQuery {
   query: TypeORMQuery;
+  dialect?: QueryDialect;
   key: string;
   value: string;
 }
@@ -19,6 +21,7 @@ export class FilterFactory {
     const lookup = this.getLookupFilter(query, hasNotOperator);
     return new FieldFilter({
       query: query.query,
+      dialect: query.dialect,
       prop,
       lookup,
       value: query.value,

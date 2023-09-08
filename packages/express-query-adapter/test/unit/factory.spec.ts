@@ -1,3 +1,4 @@
+import { QueryAdapter } from '../../src/types';
 import { QueryBuilderFactory } from '../../src/factory';
 import { TypeORMQueryBuilder } from '../../src/typeorm/query-builder';
 
@@ -9,7 +10,7 @@ describe('QueryBuilderFactory', () => {
 
   it('should return a TypeORMQueryBuilder instance when <strategy: typeorm>', async () => {
     const factory = new QueryBuilderFactory();
-    const qb = await factory.build('typeorm');
+    const qb = await factory.build({ adapter: QueryAdapter.TYPEORM });
     expect(qb).toBeInstanceOf(TypeORMQueryBuilder);
   });
 

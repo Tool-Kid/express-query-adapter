@@ -13,17 +13,17 @@ describe('Test Express integration', () => {
     app.use(express.json());
     app.use(express.urlencoded({ extended: true }));
     app.get('/get', (req, res) => {
-      const queryBuilder = new TypeORMQueryBuilder();
+      const queryBuilder = new TypeORMQueryBuilder({});
       const built = queryBuilder.build(req.query);
       res.send(built);
     });
     app.post('/post_urlquery', (req, res) => {
-      const queryBuilder = new TypeORMQueryBuilder();
+      const queryBuilder = new TypeORMQueryBuilder({});
       const built = queryBuilder.build(req.query);
       res.send(built);
     });
     app.post('/post_body', (req, res) => {
-      const queryBuilder = new TypeORMQueryBuilder();
+      const queryBuilder = new TypeORMQueryBuilder({});
       const built = queryBuilder.build(req.body);
       res.send(built);
     });
