@@ -1,5 +1,5 @@
-import { FilterFactory } from '../../filter-factory';
-import { FieldFilter } from '../field-filter';
+import { FilterFactory } from '../filter-factory';
+import { FieldFilter } from '../field/field-filter';
 
 describe('Test FilterFactory #get', () => {
   const factory = new FilterFactory();
