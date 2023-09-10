@@ -5,12 +5,11 @@ import {
   QueryAdapterType,
   QueryBuilderReturnType,
   QueryDialectType,
-  QueryDialect,
 } from './types';
 
 interface Config<Adapter> {
   adapter: Adapter;
-  dialect?: QueryDialectType;
+  dialect?: QueryDialectType<Adapter>;
   profile?: ProfileType;
 }
 
@@ -20,7 +19,7 @@ export async function getQueryAdapter<Adapter extends QueryAdapterType>(
   const factory = new QueryBuilderFactory();
   const queryBuilder = await factory.build({
     adapter: config.adapter as QueryAdapter,
-    dialect: config.dialect as QueryDialect,
+    dialect: config.dialect,
     profile: config.profile,
   });
   return queryBuilder;

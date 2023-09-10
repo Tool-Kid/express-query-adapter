@@ -1,13 +1,13 @@
 import { Between, FindOptionsUtils } from 'typeorm';
 import { LookupBuilder } from '../lookup';
-import { QueryDialect } from '../../../../types';
 import { getParsedPrimitiveValue } from '../utils';
+import { TypeORMQueryDialect } from '../../../query-dialect';
 
 export class BetweenLookup extends LookupBuilder {
   build(prop: string, value: string): Record<string, FindOptionsUtils> {
     const [value1, value2] = value.split(',');
 
-    if (this.dialect === QueryDialect.MONGODB) {
+    if (this.dialect === TypeORMQueryDialect.MONGODB) {
       return {
         [prop]: {
           $gte: getParsedPrimitiveValue(value1),

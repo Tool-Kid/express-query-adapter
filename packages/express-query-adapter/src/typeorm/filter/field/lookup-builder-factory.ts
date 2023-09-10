@@ -16,10 +16,10 @@ import {
   LowerThanOrEqualLookup,
   StartsWithLookup,
 } from './lookups';
-import { QueryDialect } from '../../../types';
+import { TypeORMQueryDialect } from '../../query-dialect';
 
 const LOOKUP_FILTER_MAP_FACTORY = (config: {
-  dialect?: QueryDialect;
+  dialect?: TypeORMQueryDialect;
 }): Map<LookupFilter, LookupBuilder> =>
   new Map([
     [LookupFilter.EXACT, new ExactLookup(config)],
@@ -46,7 +46,7 @@ export class LookupBuilderFactory {
     dialect,
   }: {
     lookup: LookupFilter;
-    dialect?: QueryDialect;
+    dialect?: TypeORMQueryDialect;
   }): LookupBuilder {
     const builder = this.getLookupMap({ dialect }).get(lookup);
     if (!builder) {

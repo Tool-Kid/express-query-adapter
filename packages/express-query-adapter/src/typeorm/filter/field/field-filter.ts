@@ -4,11 +4,11 @@ import { AbstractFilter } from '../filter';
 import { LookupFilter } from './lookup.enum';
 import { ExpressQuery } from '../../../express-query';
 import { TypeORMQuery } from '../../query';
-import { QueryDialect } from '../../../types';
+import { TypeORMQueryDialect } from '../../query-dialect';
 
 interface FilterConfig {
   query: ExpressQuery;
-  dialect?: QueryDialect;
+  dialect?: TypeORMQueryDialect;
   prop: string;
   lookup: LookupFilter;
   value: string;

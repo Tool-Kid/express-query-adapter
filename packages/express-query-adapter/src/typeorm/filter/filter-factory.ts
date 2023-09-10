@@ -2,11 +2,11 @@ import { LookupDelimiter, LookupFilter } from './field/lookup.enum';
 import { FieldFilter } from './field/field-filter';
 import { AbstractFilter } from './filter';
 import { TypeORMQuery } from '../query';
-import { QueryDialect } from '../../types';
+import { TypeORMQueryDialect } from '../query-dialect';
 
 interface FilterFactoryQuery {
   query: TypeORMQuery;
-  dialect?: QueryDialect;
+  dialect?: TypeORMQueryDialect;
   key: string;
   value: string;
 }

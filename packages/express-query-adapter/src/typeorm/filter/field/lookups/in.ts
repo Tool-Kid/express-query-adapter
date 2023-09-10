@@ -1,12 +1,12 @@
 import { FindOptionsUtils, In } from 'typeorm';
 import { LookupBuilder } from '../lookup';
-import { QueryDialect } from '../../../../types';
 import { getParsedPrimitiveValue } from '../utils';
+import { TypeORMQueryDialect } from '../../../query-dialect';
 
 export class InLookup extends LookupBuilder {
   build(prop: string, value: string): Record<string, FindOptionsUtils> {
     const values = value.split(',');
-    if (this.dialect === QueryDialect.MONGODB) {
+    if (this.dialect === TypeORMQueryDialect.MONGODB) {
       return {
         $or: [
           { [prop]: { $in: values } },

@@ -3,7 +3,8 @@ import { TypeORMQuery } from './query';
 import { FilterFactory } from './filter/filter-factory';
 import { OptionsCollection } from './filter/options/container';
 import { QueryBuilder } from '../query-builder';
-import { QueryDialect, ProfileType } from '../types';
+import { ProfileType } from '../types';
+import { TypeORMQueryDialect, TypeORMQueryDialectType } from './query-dialect';
 
 export class TypeORMQueryBuilder extends QueryBuilder<TypeORMQuery> {
   private readonly findOptions: OptionsCollection = new OptionsCollection();
@@ -13,10 +14,15 @@ export class TypeORMQueryBuilder extends QueryBuilder<TypeORMQuery> {
     dialect,
     profile,
   }: {
-    dialect?: QueryDialect;
+    dialect?: TypeORMQueryDialectType;
     profile?: ProfileType;
   }) {
-    if (dialect && !Object.values(QueryDialect).includes(dialect)) {
+    if (
+      dialect &&
+      !Object.values(TypeORMQueryDialect).includes(
+        dialect as TypeORMQueryDialect
+      )
+    ) {
       throw new Error(`Invalid dialect provided: ${dialect}`);
     }
     super({ dialect, profile });
@@ -37,7 +43,7 @@ export class TypeORMQueryBuilder extends QueryBuilder<TypeORMQuery> {
     for (const queryItem in expressQuery) {
       const filter = this.filterFactory.get({
         query: typeORMQuery,
-        dialect: this.dialect,
+        dialect: this.dialect as TypeORMQueryDialect,
         key: queryItem,
         value: expressQuery[queryItem],
       });
