@@ -1,5 +1,5 @@
 import { LookupBuilderFactory } from './lookup-builder-factory';
-import { Not } from 'typeorm';
+import { Not, ObjectLiteral } from 'typeorm';
 import { AbstractFilter } from '../filter';
 import { LookupFilter } from './lookup.enum';
 import { ExpressQuery } from '../../../express-query';
@@ -51,7 +51,19 @@ export class FieldFilter extends AbstractFilter {
     });
     const queryToAdd = builder.build(this.prop, this.value);
     if (this.notOperator) {
-      queryToAdd[this.prop] = Not(queryToAdd[this.prop]);
+      if (this.dialect === TypeORMQueryDialect.MONGODB) {
+        if (queryToAdd['$or']) {
+          // NOT (A OR B) = NOT A AND NOT B
+          queryToAdd['$and'] = (queryToAdd['$or'] as ObjectLiteral[]).map(
+            (q) => ({ [this.prop]: { $not: q[this.prop] } })
+          );
+          delete queryToAdd['$or'];
+        } else {
+          queryToAdd[this.prop] = { $not: queryToAdd[this.prop] };
+        }
+      } else {
+        queryToAdd[this.prop] = Not(queryToAdd[this.prop]);
+      }
     }
     return queryToAdd;
   }

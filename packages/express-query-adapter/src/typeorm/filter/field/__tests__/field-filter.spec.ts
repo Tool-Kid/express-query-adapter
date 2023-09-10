@@ -406,18 +406,32 @@ describe('Test FieldFilter #buildQuery', () => {
       });
     });
 
-    // FIXME: Not implemented yet
-    // it('should return a <not> filter', () => {
-    //   const fieldFilter = new FieldFilter({
-    //     query: built,
-    //     prop: 'name',
-    //     lookup: LookupFilter.EXACT,
-    //     value: 'value',
-    //     notOperator: true,
-    //     dialect: TypeORMQueryDialect.MONGODB,
-    //   });
-    //   fieldFilter.buildQuery();
-    //   expect(built['where']['name']).toEqual(Not('value'));
-    // });
+    it('should return a <not> filter for simple lookup', () => {
+      const simpleFieldFilter = new FieldFilter({
+        query: built,
+        prop: 'name',
+        lookup: LookupFilter.GT,
+        value: '2',
+        notOperator: true,
+        dialect: TypeORMQueryDialect.MONGODB,
+      });
+      simpleFieldFilter.buildQuery();
+      expect(built['where']).toStrictEqual({ name: { $not: { $gt: 2 } } });
+    });
+
+    it('should return a <not> filter for lookup with $or operator', () => {
+      const fieldFilterWithOROperator = new FieldFilter({
+        query: built,
+        prop: 'name',
+        lookup: LookupFilter.EXACT,
+        value: 'value',
+        notOperator: true,
+        dialect: TypeORMQueryDialect.MONGODB,
+      });
+      fieldFilterWithOROperator.buildQuery();
+      expect(built['where']).toStrictEqual({
+        $and: [{ name: { $not: 'value' } }, { name: { $not: 'value' } }],
+      });
+    });
   });
 });
