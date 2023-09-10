@@ -1,5 +1,5 @@
-import { FilterFactory } from '../../../../src/typeorm/filter/filter-factory';
-import { FieldFilter } from '../../../../src/typeorm/filter/field/field-filter';
+import { FilterFactory } from '../../filter-factory';
+import { FieldFilter } from '../field-filter';
 
 describe('Test FilterFactory #get', () => {
   const factory = new FilterFactory();
@@ -18,9 +18,9 @@ describe('Test FilterFactory #get', () => {
       query: {},
       key: 'field__not',
       value: 'value',
-    }) as any;
+    }) as FieldFilter;
     expect(filter).toBeInstanceOf(FieldFilter);
-    expect(filter.notOperator).toBeTruthy();
+    expect(filter.notOperator).toBe(true);
   });
 
   it('should return an instance of FieldFilter with notOperator equals to false', () => {
@@ -28,22 +28,19 @@ describe('Test FilterFactory #get', () => {
       query: {},
       key: 'field',
       value: 'value',
-    }) as any;
+    }) as FieldFilter;
     expect(filter).toBeInstanceOf(FieldFilter);
-    expect(filter.notOperator).toBeFalsy();
-  });
-});
-
-describe('Test FilterFactory #isFieldFilter', () => {
-  const factory: any = new FilterFactory();
-
-  it('should return true', () => {
-    const isField = factory.isFieldFilter('field');
-    expect(isField).toBeTruthy();
+    expect(filter.notOperator).toBe(false);
   });
 
-  it('should return false', () => {
-    const isField = factory.isFieldFilter('fk.field');
-    expect(isField).toBeFalsy();
+  it('should throw an error when key is an invalid field filter', () => {
+    const invalidKey = 'fk.field';
+    const filter = () =>
+      factory.get({
+        query: {},
+        key: invalidKey,
+        value: 'value',
+      }) as FieldFilter;
+    expect(filter).toThrow(`${invalidKey} is not a field`);
   });
 });

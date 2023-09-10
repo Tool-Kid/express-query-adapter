@@ -1,5 +1,5 @@
 import { QueryAdapter } from '../../src/types';
-import { QueryBuilderFactory } from '../../src/factory';
+import { QueryBuilderFactory } from '../../src/query-builder-factory';
 import { TypeORMQueryBuilder } from '../../src/typeorm/query-builder';
 
 describe('QueryBuilderFactory', () => {
@@ -16,7 +16,8 @@ describe('QueryBuilderFactory', () => {
 
   it('should throw an error when unrecognized adapter provided', async () => {
     const factory = new QueryBuilderFactory();
-    const qb = () => factory.build('' as never);
-    expect(() => qb()).rejects.toThrow();
+    const invalidAdapter = 'invalidAdapter';
+    const qb = () => factory.build({ adapter: invalidAdapter as never });
+    expect(qb()).rejects.toThrow(`No adapter found for ${invalidAdapter}`);
   });
 });

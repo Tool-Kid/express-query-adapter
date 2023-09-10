@@ -16,7 +16,7 @@ interface FilterConfig {
 }
 
 export class FieldFilter extends AbstractFilter {
-  private readonly notOperator: boolean;
+  public readonly notOperator: boolean;
   private readonly lookupBuilderFactory: LookupBuilderFactory =
     new LookupBuilderFactory();
 

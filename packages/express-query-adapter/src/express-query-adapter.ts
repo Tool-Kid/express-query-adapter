@@ -1,4 +1,4 @@
-import { QueryBuilderFactory } from './factory';
+import { QueryBuilderFactory } from './query-builder-factory';
 import {
   ProfileType,
   QueryAdapter,

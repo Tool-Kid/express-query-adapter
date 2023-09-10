@@ -1,7 +1,7 @@
 import * as express from 'express';
 import * as request from 'supertest';
-import { TypeORMQueryBuilder } from '../../../src/typeorm/query-builder';
-import { DEFAULT_PAGINATION } from '../../fixtures/default-pagination';
+import { TypeORMQueryBuilder } from '../src/typeorm/query-builder';
+import { DEFAULT_PAGINATION } from './fixtures/default-pagination';
 import { Like } from 'typeorm';
 import { Server } from 'http';
 

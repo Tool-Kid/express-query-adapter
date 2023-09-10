@@ -1,7 +1,7 @@
-import { DEFAULT_PAGINATION } from '../../../../test/fixtures/default-pagination';
-import { ConfigProfile } from '../../../../src/profile/config-profile';
-import { ENABLED_PROFILE } from '../../../../src/profile/defaults';
-import { TypeORMQueryBuilder } from '../../../../src/typeorm/query-builder';
+import { DEFAULT_PAGINATION } from './fixtures/default-pagination';
+import { ConfigProfile } from '../../../../profile/config-profile';
+import { ENABLED_PROFILE } from '../../../../profile/defaults';
+import { TypeORMQueryBuilder } from '../../../query-builder';
 
 describe('Test Profiles for <pagination>', () => {
   let qb: TypeORMQueryBuilder;

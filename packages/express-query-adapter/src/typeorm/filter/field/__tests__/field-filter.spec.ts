@@ -10,11 +10,11 @@ import {
   In,
   Not,
 } from 'typeorm';
-import { FieldFilter } from '../../../../src/typeorm/filter/field/field-filter';
-import { LookupFilter } from '../../../../src/typeorm/filter/field/lookup.enum';
+import { FieldFilter } from '../field-filter';
+import { LookupFilter } from '../lookup.enum';
 
 describe('Test FieldFilter #buildQuery', () => {
-  const built: any = {};
+  const built: Record<string, never> = {};
 
   it('should return an <exact> filter', () => {
     const fieldFilter = new FieldFilter({
