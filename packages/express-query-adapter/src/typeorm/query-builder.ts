@@ -16,6 +16,9 @@ export class TypeORMQueryBuilder extends QueryBuilder<TypeORMQuery> {
     dialect?: QueryDialect;
     profile?: ProfileType;
   }) {
+    if (dialect && !Object.values(QueryDialect).includes(dialect)) {
+      throw new Error(`Invalid dialect provided: ${dialect}`);
+    }
     super({ dialect, profile });
   }
 

@@ -8,15 +8,15 @@ describe('QueryBuilderFactory', () => {
     expect(factory).toBeInstanceOf(QueryBuilderFactory);
   });
 
-  it('should return a TypeORMQueryBuilder instance when <strategy: typeorm>', async () => {
+  it('should return a TypeORMQueryBuilder instance when <adapter: typeorm>', async () => {
     const factory = new QueryBuilderFactory();
     const qb = await factory.build({ adapter: QueryAdapter.TYPEORM });
     expect(qb).toBeInstanceOf(TypeORMQueryBuilder);
   });
 
-  it('should throw an error when unrecognized strategy provided', async () => {
+  it('should throw an error when unrecognized adapter provided', async () => {
     const factory = new QueryBuilderFactory();
-    const qb = () => factory.build('' as any);
+    const qb = () => factory.build('' as never);
     expect(() => qb()).rejects.toThrow();
   });
 });
