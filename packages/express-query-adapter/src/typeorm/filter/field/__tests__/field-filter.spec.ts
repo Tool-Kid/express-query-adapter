@@ -215,7 +215,7 @@ describe('Test FieldFilter #buildQuery', () => {
       });
       fieldFilter.buildQuery();
       expect(built['where']).toStrictEqual({
-        $or: [{ name: 'value' }, { name: 'value' }],
+        $or: [{ name: { $eq: 'value' } }, { name: { $eq: 'value' } }],
       });
     });
 
@@ -430,7 +430,10 @@ describe('Test FieldFilter #buildQuery', () => {
       });
       fieldFilterWithOROperator.buildQuery();
       expect(built['where']).toStrictEqual({
-        $and: [{ name: { $not: 'value' } }, { name: { $not: 'value' } }],
+        $and: [
+          { name: { $not: { $eq: 'value' } } },
+          { name: { $not: { $eq: 'value' } } },
+        ],
       });
     });
   });

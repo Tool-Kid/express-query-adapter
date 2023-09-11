@@ -7,7 +7,10 @@ export class ExactLookup extends LookupBuilder {
   build(prop: string, value: string): Record<string, FindOptionsUtils> {
     if (this.dialect === TypeORMQueryDialect.MONGODB) {
       return {
-        $or: [{ [prop]: value }, { [prop]: getParsedPrimitiveValue(value) }],
+        $or: [
+          { [prop]: { $eq: value } },
+          { [prop]: { $eq: getParsedPrimitiveValue(value) } },
+        ],
       };
     } else {
       return { [prop]: value };
