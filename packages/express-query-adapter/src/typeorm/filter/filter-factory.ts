@@ -13,7 +13,7 @@ interface FilterFactoryQuery {
 
 export class FilterFactory {
   public get(query: FilterFactoryQuery): AbstractFilter {
-    if (!this.isFieldFilter(query.key)) {
+    if (!this.isFieldFilter(query.key, query.dialect)) {
       throw new Error(`${query.key} is not a field`);
     }
     const prop = this.getProp(query);
@@ -54,10 +54,9 @@ export class FilterFactory {
     );
   }
 
-  private isFieldFilter(key: string): boolean {
-    if (!key.includes(LookupDelimiter.RELATION_DELIMITER)) {
-      return true;
-    }
-    return false;
+  private isFieldFilter(key: string, dialect?: TypeORMQueryDialect): boolean {
+    if (dialect === TypeORMQueryDialect.MONGODB) {
+      return !key.startsWith('$');
+    } else return !key.includes(LookupDelimiter.RELATION_DELIMITER);
   }
 }
