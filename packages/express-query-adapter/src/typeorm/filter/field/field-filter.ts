@@ -38,10 +38,16 @@ export class FieldFilter extends AbstractFilter {
   }
 
   private setQuery(queryToAdd: TypeORMQuery) {
-    this.query['where'] = {
-      ...this.query['where'],
-      ...queryToAdd,
-    };
+    if (this.dialect === TypeORMQueryDialect.MONGODB) {
+      this.query['where'] = {
+        $and: [...(this.query?.['where']?.['$and'] ?? []), queryToAdd],
+      };
+    } else {
+      this.query['where'] = {
+        ...this.query['where'],
+        ...queryToAdd,
+      };
+    }
   }
 
   private getQuery(): TypeORMQuery {
