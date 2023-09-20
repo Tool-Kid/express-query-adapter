@@ -1,4 +1,4 @@
-import { ITEMS_PER_PAGE } from '../../src/profile';
+import { ITEMS_PER_PAGE } from '../../../../../../src/profile';
 
 export const DEFAULT_PAGINATION = {
   skip: 0,

@@ -1,8 +1,14 @@
 import { FindOptionsUtils, Like } from 'typeorm';
 import { LookupBuilder } from '../lookup';
+import { escapeRegExp } from '../utils';
+import { TypeORMQueryDialect } from '../../../query-dialect';
 
-export class StartsWithLookup implements LookupBuilder {
+export class StartsWithLookup extends LookupBuilder {
   build(prop: string, value: string): Record<string, FindOptionsUtils> {
-    return { [prop]: Like(`${value}%`) };
+    if (this.dialect === TypeORMQueryDialect.MONGODB) {
+      return { [prop]: { $regex: new RegExp(`^${escapeRegExp(value)}`) } };
+    } else {
+      return { [prop]: Like(`${value}%`) };
+    }
   }
 }

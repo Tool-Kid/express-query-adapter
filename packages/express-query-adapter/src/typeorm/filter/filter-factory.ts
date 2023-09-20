@@ -2,16 +2,18 @@ import { LookupDelimiter, LookupFilter } from './field/lookup.enum';
 import { FieldFilter } from './field/field-filter';
 import { AbstractFilter } from './filter';
 import { TypeORMQuery } from '../query';
+import { TypeORMQueryDialect } from '../query-dialect';
 
 interface FilterFactoryQuery {
   query: TypeORMQuery;
+  dialect?: TypeORMQueryDialect;
   key: string;
   value: string;
 }
 
 export class FilterFactory {
   public get(query: FilterFactoryQuery): AbstractFilter {
-    if (!this.isFieldFilter(query.key)) {
+    if (!this.isFieldFilter(query.key, query.dialect)) {
       throw new Error(`${query.key} is not a field`);
     }
     const prop = this.getProp(query);
@@ -19,6 +21,7 @@ export class FilterFactory {
     const lookup = this.getLookupFilter(query, hasNotOperator);
     return new FieldFilter({
       query: query.query,
+      dialect: query.dialect,
       prop,
       lookup,
       value: query.value,
@@ -51,10 +54,9 @@ export class FilterFactory {
     );
   }
 
-  private isFieldFilter(key: string): boolean {
-    if (!key.includes(LookupDelimiter.RELATION_DELIMITER)) {
-      return true;
-    }
-    return false;
+  private isFieldFilter(key: string, dialect?: TypeORMQueryDialect): boolean {
+    if (dialect === TypeORMQueryDialect.MONGODB) {
+      return !key.startsWith('$');
+    } else return !key.includes(LookupDelimiter.RELATION_DELIMITER);
   }
 }

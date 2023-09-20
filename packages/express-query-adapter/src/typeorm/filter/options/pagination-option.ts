@@ -23,8 +23,8 @@ export class PaginationOption implements FilterOption {
       delete query.source['page'];
       query.target['take'] =
         query.source['limit'] && query.source['limit'] > 0
-          ? query.source['limit']
-          : itemsPerPage;
+          ? +query.source['limit']
+          : +itemsPerPage;
       delete query.source['limit'];
     }
     delete query.source['pagination'];
