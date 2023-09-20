@@ -111,11 +111,15 @@ describe('Test Express integration with typeorm adapter', () => {
         .end((err, res) => {
           expect(res.body).toEqual({
             where: {
-              $or: [
-                { name: { $eq: 'rjlopezdev' } },
-                { name: { $eq: 'rjlopezdev' } },
+              $and: [
+                {
+                  $or: [
+                    { name: { $eq: 'rjlopezdev' } },
+                    { name: { $eq: 'rjlopezdev' } },
+                  ],
+                },
+                { age: { $not: { $gte: 50 } } },
               ],
-              age: { $not: { $gte: 50 } },
             },
             ...DEFAULT_PAGINATION,
           });
@@ -130,11 +134,15 @@ describe('Test Express integration with typeorm adapter', () => {
         .end((err, res) => {
           expect(res.body).toEqual({
             where: {
-              $or: [
-                { name: { $eq: 'rjlopezdev' } },
-                { name: { $eq: 'rjlopezdev' } },
+              $and: [
+                {
+                  $or: [
+                    { name: { $eq: 'rjlopezdev' } },
+                    { name: { $eq: 'rjlopezdev' } },
+                  ],
+                },
+                { age: { $not: { $gte: 50 } } },
               ],
-              age: { $not: { $gte: 50 } },
             },
             ...DEFAULT_PAGINATION,
           });
@@ -153,11 +161,15 @@ describe('Test Express integration with typeorm adapter', () => {
         .end((err, res) => {
           expect(res.body).toEqual({
             where: {
-              $or: [
-                { name: { $eq: 'rjlopezdev' } },
-                { name: { $eq: 'rjlopezdev' } },
+              $and: [
+                {
+                  $or: [
+                    { name: { $eq: 'rjlopezdev' } },
+                    { name: { $eq: 'rjlopezdev' } },
+                  ],
+                },
+                { age: { $not: { $gte: 50 } } },
               ],
-              age: { $not: { $gte: 50 } },
             },
             ...DEFAULT_PAGINATION,
           });

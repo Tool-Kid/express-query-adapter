@@ -215,7 +215,9 @@ describe('Test FieldFilter #buildQuery', () => {
       });
       fieldFilter.buildQuery();
       expect(built['where']).toStrictEqual({
-        $or: [{ name: { $eq: 'value' } }, { name: { $eq: 'value' } }],
+        $and: [
+          { $or: [{ name: { $eq: 'value' } }, { name: { $eq: 'value' } }] },
+        ],
       });
     });
 
@@ -229,7 +231,7 @@ describe('Test FieldFilter #buildQuery', () => {
       });
       fieldFilter.buildQuery();
       expect(built['where']).toStrictEqual({
-        name: { $regex: new RegExp('value') },
+        $and: [{ name: { $regex: new RegExp('value') } }],
       });
     });
 
@@ -243,7 +245,7 @@ describe('Test FieldFilter #buildQuery', () => {
       });
       fieldFilter.buildQuery();
       expect(built['where']).toStrictEqual({
-        name: { $regex: new RegExp(`^value`) },
+        $and: [{ name: { $regex: new RegExp(`^value`) } }],
       });
     });
 
@@ -257,7 +259,7 @@ describe('Test FieldFilter #buildQuery', () => {
       });
       fieldFilter.buildQuery();
       expect(built['where']).toStrictEqual({
-        name: { $regex: new RegExp(`value$`) },
+        $and: [{ name: { $regex: new RegExp(`value$`) } }],
       });
     });
 
@@ -271,7 +273,7 @@ describe('Test FieldFilter #buildQuery', () => {
       });
       fieldFilter.buildQuery();
       expect(built['where']).toStrictEqual({
-        name: { $regex: new RegExp(`value`, 'i') },
+        $and: [{ name: { $regex: new RegExp(`value`, 'i') } }],
       });
     });
 
@@ -285,7 +287,7 @@ describe('Test FieldFilter #buildQuery', () => {
       });
       fieldFilter.buildQuery();
       expect(built['where']).toStrictEqual({
-        name: { $regex: new RegExp(`^value`, 'i') },
+        $and: [{ name: { $regex: new RegExp(`^value`, 'i') } }],
       });
     });
 
@@ -299,7 +301,7 @@ describe('Test FieldFilter #buildQuery', () => {
       });
       fieldFilter.buildQuery();
       expect(built['where']).toStrictEqual({
-        name: { $regex: new RegExp(`value$`, 'i') },
+        $and: [{ name: { $regex: new RegExp(`value$`, 'i') } }],
       });
     });
 
@@ -312,7 +314,7 @@ describe('Test FieldFilter #buildQuery', () => {
         dialect: TypeORMQueryDialect.MONGODB,
       });
       fieldFilter.buildQuery();
-      expect(built['where']).toStrictEqual({ name: { $eq: null } });
+      expect(built['where']).toStrictEqual({ $and: [{ name: { $eq: null } }] });
     });
 
     it('should return an <gt> filter', () => {
@@ -324,7 +326,7 @@ describe('Test FieldFilter #buildQuery', () => {
         dialect: TypeORMQueryDialect.MONGODB,
       });
       fieldFilter.buildQuery();
-      expect(built['where']).toStrictEqual({ name: { $gt: 2 } });
+      expect(built['where']).toStrictEqual({ $and: [{ name: { $gt: 2 } }] });
     });
 
     it('should return a <gte> filter', () => {
@@ -336,7 +338,7 @@ describe('Test FieldFilter #buildQuery', () => {
         dialect: TypeORMQueryDialect.MONGODB,
       });
       fieldFilter.buildQuery();
-      expect(built['where']).toStrictEqual({ name: { $gte: 2 } });
+      expect(built['where']).toStrictEqual({ $and: [{ name: { $gte: 2 } }] });
     });
 
     it('should return a <lt> filter', () => {
@@ -348,7 +350,7 @@ describe('Test FieldFilter #buildQuery', () => {
         dialect: TypeORMQueryDialect.MONGODB,
       });
       fieldFilter.buildQuery();
-      expect(built['where']).toStrictEqual({ name: { $lt: 2 } });
+      expect(built['where']).toStrictEqual({ $and: [{ name: { $lt: 2 } }] });
     });
 
     it('should return a <lte> filter', () => {
@@ -360,7 +362,7 @@ describe('Test FieldFilter #buildQuery', () => {
         dialect: TypeORMQueryDialect.MONGODB,
       });
       fieldFilter.buildQuery();
-      expect(built['where']).toStrictEqual({ name: { $lte: 2 } });
+      expect(built['where']).toStrictEqual({ $and: [{ name: { $lte: 2 } }] });
     });
 
     it('should return a <between> filter', () => {
@@ -372,7 +374,9 @@ describe('Test FieldFilter #buildQuery', () => {
         dialect: TypeORMQueryDialect.MONGODB,
       });
       fieldFilter.buildQuery();
-      expect(built['where']).toStrictEqual({ name: { $gte: 1, $lte: 10 } });
+      expect(built['where']).toStrictEqual({
+        $and: [{ name: { $gte: 1, $lte: 10 } }],
+      });
     });
 
     it('should return a <between> filter for dates', () => {
@@ -385,7 +389,14 @@ describe('Test FieldFilter #buildQuery', () => {
       });
       fieldFilter.buildQuery();
       expect(built['where']).toStrictEqual({
-        date: { $gte: new Date('2022-10-10'), $lte: new Date('2022-11-11') },
+        $and: [
+          {
+            date: {
+              $gte: new Date('2022-10-10'),
+              $lte: new Date('2022-11-11'),
+            },
+          },
+        ],
       });
     });
 
@@ -399,9 +410,13 @@ describe('Test FieldFilter #buildQuery', () => {
       });
       fieldFilter.buildQuery();
       expect(built['where']).toStrictEqual({
-        $or: [
-          { name: { $in: ['1', '2', '3', '4', 'foo'] } },
-          { name: { $in: [1, 2, 3, 4, 'foo'] } },
+        $and: [
+          {
+            $or: [
+              { name: { $in: ['1', '2', '3', '4', 'foo'] } },
+              { name: { $in: [1, 2, 3, 4, 'foo'] } },
+            ],
+          },
         ],
       });
     });
@@ -416,7 +431,9 @@ describe('Test FieldFilter #buildQuery', () => {
         dialect: TypeORMQueryDialect.MONGODB,
       });
       simpleFieldFilter.buildQuery();
-      expect(built['where']).toStrictEqual({ name: { $not: { $gt: 2 } } });
+      expect(built['where']).toStrictEqual({
+        $and: [{ name: { $not: { $gt: 2 } } }],
+      });
     });
 
     it('should return a <not> filter for lookup with $or operator', () => {
@@ -431,8 +448,12 @@ describe('Test FieldFilter #buildQuery', () => {
       fieldFilterWithOROperator.buildQuery();
       expect(built['where']).toStrictEqual({
         $and: [
-          { name: { $not: { $eq: 'value' } } },
-          { name: { $not: { $eq: 'value' } } },
+          {
+            $and: [
+              { name: { $not: { $eq: 'value' } } },
+              { name: { $not: { $eq: 'value' } } },
+            ],
+          },
         ],
       });
     });

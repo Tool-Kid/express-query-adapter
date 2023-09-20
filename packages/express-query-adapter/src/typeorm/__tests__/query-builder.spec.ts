@@ -32,10 +32,14 @@ describe('TypeORMQueryBuilder', () => {
     expect(result).toEqual(
       expect.objectContaining({
         where: {
-          createdAt: {
-            $gte: new Date('2023-09-10T18:00:00.405Z'),
-            $lte: new Date('2023-09-10T19:00:00.405Z'),
-          },
+          $and: [
+            {
+              createdAt: {
+                $gte: new Date('2023-09-10T18:00:00.405Z'),
+                $lte: new Date('2023-09-10T19:00:00.405Z'),
+              },
+            },
+          ],
         },
       })
     );
